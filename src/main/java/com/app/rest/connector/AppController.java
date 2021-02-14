@@ -1,15 +1,17 @@
 package com.app.rest.connector;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
 
 @RestController
 class AppController {
+
+    @RequestMapping("/")
+    public String index() {
+        return "Greetings from Spring Boot!";
+    }
 
     @GetMapping("/all")
     List<String> all() {

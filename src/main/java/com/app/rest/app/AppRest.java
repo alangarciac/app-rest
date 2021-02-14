@@ -5,10 +5,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 
 import java.util.Arrays;
 
 @SpringBootApplication
+@PropertySources({
+        @PropertySource("classpath:conf/env/environment.properties")
+})
 public class AppRest {
 
     public static void main(String[] args) {

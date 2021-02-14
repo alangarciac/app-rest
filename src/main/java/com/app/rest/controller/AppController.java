@@ -1,4 +1,4 @@
-package com.app.rest.connector;
+package com.app.rest.controller;
 
 import org.springframework.web.bind.annotation.*;
 

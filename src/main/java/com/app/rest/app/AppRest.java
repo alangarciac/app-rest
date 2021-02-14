@@ -11,9 +11,6 @@ import org.springframework.context.annotation.PropertySources;
 import java.util.Arrays;
 
 @SpringBootApplication
-@PropertySources({
-        @PropertySource("classpath:conf/env/environment.properties")
-})
 public class AppRest {
 
     public static void main(String[] args) {

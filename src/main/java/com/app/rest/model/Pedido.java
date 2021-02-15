@@ -6,27 +6,30 @@ public class Pedido {
     private Integer id;
     private boolean vegano;
 
-    public String getNombre() {
-        return nombre;
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "nombre='" + nombre + '\'' +
+                ", id=" + id +
+                ", vegano=" + vegano +
+                '}';
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public Pedido(int id, String nombre, boolean vegano) {
+        this.nombre=nombre;
+        this.id=id;
+        this.vegano=vegano;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public boolean isVegano() {
         return vegano;
-    }
-
-    public void setVegano(boolean vegano) {
-        this.vegano = vegano;
     }
 }

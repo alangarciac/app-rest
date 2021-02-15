@@ -19,7 +19,7 @@ class AppController {
         return Collections.emptyList();
     }
 
-    @PostMapping("/all")
+    @PostMapping("/post")
     String newElement(@RequestBody String newElement) {
         // example: return repository.save(newElement);
         return null;

@@ -3,17 +3,9 @@ package com.app.rest.model;
 public class Pedido {
 
     private String nombre;
-    private Integer id;
+    private int id;
     private boolean vegano;
 
-    @Override
-    public String toString() {
-        return "Pedido{" +
-                "nombre='" + nombre + '\'' +
-                ", id=" + id +
-                ", vegano=" + vegano +
-                '}';
-    }
 
     public Pedido(int id, String nombre, boolean vegano) {
         this.nombre=nombre;
@@ -32,4 +24,13 @@ public class Pedido {
     public boolean isVegano() {
         return vegano;
     }
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "nombre='" + nombre + '\'' +
+                ", id=" + id +
+                ", vegano=" + vegano +
+                '}';
+    }
+
 }

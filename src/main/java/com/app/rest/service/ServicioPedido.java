@@ -17,7 +17,6 @@ public class ServicioPedido {
         for (int i = 0; i < 10; i++) {
             pedidos.add(new Pedido(i, "nombre"+i, false));
         }
-        for (int i = 0; i < 5; i++) {
             try {
                 TimeUnit.SECONDS.sleep(5);
             }
@@ -25,7 +24,7 @@ public class ServicioPedido {
                 e.printStackTrace();
             }
 
-        }
+        
         return pedidos;
     }
 }

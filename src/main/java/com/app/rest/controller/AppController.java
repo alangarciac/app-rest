@@ -27,10 +27,4 @@ class AppController {
         return new ResponseEntity<Object>(pedido.getPedidos(), HttpStatus.OK);
     }
     
-//    @PostMapping("/idpedido")
-//    String newElement(@RequestBody String newElement) {
-//        // example: return repository.save(newElement);
-//        return null;
-//    }
-
 }

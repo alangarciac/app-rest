@@ -24,7 +24,11 @@ class AppController {
     //Devuelve todos los pedidos
     @GetMapping("/pedidos")
     public ResponseEntity<Object> pedidos(){
-        return new ResponseEntity<Object>(pedido.getPedidos(), HttpStatus.OK);
+        try {
+            return new ResponseEntity<Object>(pedido.getPedidos(), HttpStatus.OK);
+        } catch (InterruptedException e) {
+            return new ResponseEntity<Object>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     
 }

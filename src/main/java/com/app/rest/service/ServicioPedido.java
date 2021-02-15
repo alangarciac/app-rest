@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class ServicioPedido {
 
-    public List<Pedido> getPedidos() {
+    public List<Pedido> getPedidos() throws InterruptedException {
         List<Pedido> pedidos= new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             pedidos.add(new Pedido(i, "nombre"+i, false));
@@ -21,10 +21,11 @@ public class ServicioPedido {
                 TimeUnit.SECONDS.sleep(5);
             }
             catch (InterruptedException e) {
-                e.printStackTrace("Error en el timer, algo hizo kapow");
+                e.printStackTrace();
+                throw e;
             }
 
-
+        
         return pedidos;
     }
 }

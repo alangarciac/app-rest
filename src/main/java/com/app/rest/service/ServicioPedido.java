@@ -3,6 +3,7 @@ package com.app.rest.service;
 import com.app.rest.model.Pedido;
 import org.springframework.retry.backoff.Sleeper;
 import org.springframework.retry.support.RetrySimulation;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;

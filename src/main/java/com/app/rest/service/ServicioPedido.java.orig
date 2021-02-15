@@ -1,8 +1,12 @@
 package com.app.rest.service;
 
 import com.app.rest.model.Pedido;
+<<<<<<< HEAD
+import org.springframework.stereotype.Service;
+=======
 import org.springframework.retry.backoff.Sleeper;
 import org.springframework.retry.support.RetrySimulation;
+>>>>>>> eaeac93c35117448b4481cf41d2e58a69cc7ab60
 
 import java.util.ArrayList;
 import java.util.List;

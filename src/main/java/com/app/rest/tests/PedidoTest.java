@@ -7,7 +7,11 @@ import org.springframework.boot.SpringApplication;
 public class PedidoTest {
     public static void main(String[] args) {
         ServicioPedido spedido = new ServicioPedido();
-        System.out.println(spedido.getPedidos());
+        try {
+            System.out.println(spedido.getPedidos());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

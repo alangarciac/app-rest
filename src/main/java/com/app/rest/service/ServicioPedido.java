@@ -21,10 +21,10 @@ public class ServicioPedido {
                 TimeUnit.SECONDS.sleep(5);
             }
             catch (InterruptedException e) {
-                e.printStackTrace();
+                e.printStackTrace("Error en el timer, algo hizo kapow");
             }
 
-        
+
         return pedidos;
     }
 }

@@ -1,5 +1,10 @@
 package com.app.rest.controller;
 
+import com.app.rest.model.Pedido;
+import com.app.rest.service.ServicioPedido;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -13,16 +18,19 @@ class AppController {
         return "Greetings from Spring Boot!";
     }
 
-    @GetMapping("/all")
-    List<String> all() {
-        // ret element from database or remote service
-        return Collections.emptyList();
-    }
+    @Autowired
+    ServicioPedido pedido;
 
-    @PostMapping("/post")
-    String newElement(@RequestBody String newElement) {
-        // example: return repository.save(newElement);
-        return null;
+    //Devuelve todos los pedidos
+    @GetMapping("/pedidos")
+    public ResponseEntity<Object> pedidos(){
+        return new ResponseEntity<Object>(pedido.getPedidos(), HttpStatus.OK);
     }
+    
+//    @PostMapping("/idpedido")
+//    String newElement(@RequestBody String newElement) {
+//        // example: return repository.save(newElement);
+//        return null;
+//    }
 
 }

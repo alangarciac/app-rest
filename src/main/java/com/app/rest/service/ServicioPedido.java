@@ -18,7 +18,13 @@ public class ServicioPedido {
             pedidos.add(new Pedido(i, "nombre"+i, false));
         }
         for (int i = 0; i < 5; i++) {
-            TimeUnit.SECONDS.sleep(5);
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
         }
         return pedidos;
     }

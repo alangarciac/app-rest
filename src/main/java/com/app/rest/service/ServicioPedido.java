@@ -28,4 +28,19 @@ public class ServicioPedido {
         
         return pedidos;
     }
+
+    public Object getPedido(int id) {
+        //Implementar como corresponde
+        return new Pedido(7777, "ProtoGetPedido", false);
+    }
+
+    public Object deletePedido(int id) {
+        //Implementar como corresponde
+        return new Pedido(8888, "ProtoDeletePedido", false);
+    }
+
+    public Object newPedido(ServicioPedido newServicio) {
+        //Implementar como corresponde
+        return new Pedido(9999, "ProtoNewPedido", false);
+    }
 }

@@ -1,3 +1,4 @@
 .idea/
+*/target/**
 .app-rest.iml
 *.class

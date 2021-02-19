@@ -1,7 +1,7 @@
 package com.app.rest.controller;
 
-import com.app.rest.model.Pedido;
-import com.app.rest.service.ServicioPedido;
+import com.app.rest.model.Order;
+import com.app.rest.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,33 +24,33 @@ class AppController {
     }
 
     @Autowired
-    ServicioPedido pedido;
+    OrderService order;
 
-    //Devuelve todos los pedidos
-    @GetMapping("/pedidos")
-    public ResponseEntity<Object> pedidos(){
+    //Returns all orders
+    @GetMapping("/orders")
+    public ResponseEntity<Object> orders(){
         try {
-            return new ResponseEntity<Object>(pedido.getPedidos(), HttpStatus.OK);
+            return new ResponseEntity<Object>(order.getOrders(), HttpStatus.OK);
         } catch (InterruptedException e) {
             return new ResponseEntity<Object>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    //Devuelve el pedido por id
-    @GetMapping("/pedidos/{id}")
-    public ResponseEntity<Object> getPedido(@PathVariable int id) {
-        return new ResponseEntity<Object>(pedido.getPedido(id), HttpStatus.OK);
+    //Returns an order by id
+    @GetMapping("/orders/{id}")
+    public ResponseEntity<Object> getOrder(@PathVariable int id) {
+        return new ResponseEntity<Object>(order.getOrder(id), HttpStatus.OK);
 
     }
 
-    //Borra un pedido por id
-    @DeleteMapping("/pedidos/{id}")
-    public ResponseEntity<Object> deletePedido(@PathVariable int id) {
-        return new ResponseEntity<Object>(pedido.deletePedido(id), HttpStatus.OK);
+    //Deletes an order by id
+    @DeleteMapping("/orders/{id}")
+    public ResponseEntity<Object> deleteOrder(@PathVariable int id) {
+        return new ResponseEntity<Object>(order.deleteOrder(id), HttpStatus.OK);
     }
 
-    //Crea un nuevo pedido
-    @PostMapping("/pedidos/nuevo")
-    public ResponseEntity<Object> pedido(@RequestBody ServicioPedido newServicio) {
-        return new ResponseEntity<Object>(pedido.newPedido(newServicio),HttpStatus.OK);
+    //Creates a new order
+    @PostMapping("/orders/new")
+    public ResponseEntity<Object> order(@RequestBody OrderService newService) {
+        return new ResponseEntity<Object>(order.newOrder(newService),HttpStatus.OK);
     }
 }

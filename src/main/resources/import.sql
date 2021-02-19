@@ -1,0 +1,10 @@
+insert into ITEM values(1,'fideos con salsa de tomate', 'fideos', 'vegano');
+insert into ITEM values(2,'un bife', 'carne', 'no-vegano');
+insert into ITEM values(3,'milange en 2 panes', 'sambuches', 'no-vegano');
+insert into USER values (1, 'joe', 'joe@example');
+insert into USER values (2, 'juampi', 'juampi@example');
+insert into ORDERDETAIL values (1, 'PedidosYA', '2021-02-19', 1);
+insert into ORDERDETAIL values (2, 'PedidosYA', '2021-02-19', 2);
+insert into ORDERDETAIL_ITEMS values (1,1);
+insert into ORDERDETAIL_ITEMS values (1,3);
+insert into ORDERDETAIL_ITEMS values (2,2);

@@ -1,3 +1,7 @@
 .idea/
 .app-rest.iml
 *.class
+.classpath
+.project
+.settings/
+target/

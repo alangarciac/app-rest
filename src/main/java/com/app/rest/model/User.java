@@ -16,16 +16,6 @@ public class User {
     public User() {
     }
 
-    /*public User(Long id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }*/
-
     public void setName(String name) {
         this.name = name;
     }

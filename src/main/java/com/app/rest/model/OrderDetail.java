@@ -21,18 +21,6 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
-    /*public OrderDetail(Long id, String code, Date date, List<Item> items, User user) {
-        this.id = id;
-        this.code = code;
-        this.date = date;
-        this.items = items;
-        this.user = user;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }*/
-
     public void setCode(String code) {
         this.code = code;
     }

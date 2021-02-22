@@ -1,6 +1,7 @@
 .idea/
-.app-rest.iml
+app-rest.iml
 *.class
+.gradle/
 .classpath
 .project
 .settings/

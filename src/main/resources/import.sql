@@ -8,3 +8,4 @@ insert into ORDERDETAIL values (2, 'PedidosYA', '2021-02-19', 2);
 insert into ORDERDETAIL_ITEMS values (1,1);
 insert into ORDERDETAIL_ITEMS values (1,3);
 insert into ORDERDETAIL_ITEMS values (2,2);
+alter sequence HIBERNATE_SEQUENCE restart 100;

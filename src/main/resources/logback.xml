@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{ISO8601} %-5level [${HOSTNAME}-%mdc{uow}-%mdc{requestId}] [%thread] %C\(%L\): %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.eclipse.jetty" level="ERROR"/>
+    <logger name="org.apache" level="WARN"/>
+    <logger name="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" level="ERROR" />
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="console"/>
+    </root>
+
+</configuration>

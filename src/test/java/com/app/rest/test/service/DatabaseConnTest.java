@@ -1,4 +1,4 @@
-package com.app.rest.tests;
+package com.app.rest.test.service;
 
 import com.app.rest.model.Item;
 import com.app.rest.services.ItemService;

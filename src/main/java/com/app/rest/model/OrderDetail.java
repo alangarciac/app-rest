@@ -22,10 +22,10 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
-    public OrderDetail(String code, Date date, List<Item> items, User user) {
+    public OrderDetail(String code, Date date, String status, List<Item> items, User user) {
         this.code = code;
         this.date = date;
-        this.status = "Started";
+        this.status = status;
         this.items = items;
         this.user = user;
     }

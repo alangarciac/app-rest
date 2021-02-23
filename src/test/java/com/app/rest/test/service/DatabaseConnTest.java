@@ -18,7 +18,7 @@ public class DatabaseConnTest {
     @Test
     public void UnitTest() throws InterruptedException, InternalError {
         long l1 = itemServ.getItems().size();
-        Item item = new Item("una prueba", "una prueba", "una prueba");
+        Item item = new Item("una prueba", "una prueba", "una prueba", false);
         itemServ.saveItem(item);
         long l2 = itemServ.getItems().size();
         if (l1 == l2) {

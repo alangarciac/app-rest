@@ -14,11 +14,11 @@ public class Item {
 
     public Item() {
     }
-    public Item(String name, String type, String description) {
+    public Item(String name, String type, String description, boolean deleted) {
         this.name = name;
         this.type = type;
         this.description = description;
-        this.deleted = false;
+        this.deleted = deleted;
     }
 
     public void setName(String name) {

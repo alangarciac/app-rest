@@ -17,10 +17,10 @@ public class User {
     public User() {
     }
 
-    public User(String name, String email) {
+    public User(String name, String email, boolean deleted) {
         this.name = name;
         this.email = email;
-        this.deleted = false;
+        this.deleted = deleted;
     }
 
     public void setName(String name) {

@@ -4,16 +4,12 @@ package com.app.rest.controller;
 import org.springframework.web.bind.annotation.*;
 
 
-import com.app.rest.model.Order;
 import com.app.rest.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 
-import java.util.Collections;
-import java.util.List;
 
 /**
     ToDo: Revisar los codigos de error en los catch
@@ -41,21 +37,24 @@ class AppController {
         }
     }
     //Returns an order by id
+    //y las excepciones?
+    /*
     @GetMapping("/orders/{id}")
     public ResponseEntity<Object> getOrder(@PathVariable int id) {
         return new ResponseEntity<Object>(order.getOrder(id), HttpStatus.OK);
 
-    }
+    }*/
 
     //Deletes an order by id
-    @DeleteMapping("/orders/{id}")
+    //y las excepciones?
+    /*@DeleteMapping("/orders/{id}")
     public ResponseEntity<Object> deleteOrder(@PathVariable int id) {
         return new ResponseEntity<Object>(order.deleteOrder(id), HttpStatus.OK);
-    }
+    }*/
 
-    //Creates a new order
-    @PostMapping("/orders/new")
+    //Creates a new order - WRONG
+    /*@PostMapping("/orders/new")
     public ResponseEntity<Object> order(@RequestBody OrderService newService) {
         return new ResponseEntity<Object>(order.newOrder(newService),HttpStatus.OK);
-    }
+    }*/
 }

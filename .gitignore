@@ -6,3 +6,4 @@ app-rest.iml
 .project
 .settings/
 target/
+*.iml

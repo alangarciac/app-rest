@@ -10,6 +10,7 @@ public class Item {
     private String name;
     private String type;
     private String description;
+    private boolean deleted;
 
     public Item() {
     }
@@ -17,6 +18,7 @@ public class Item {
         this.name = name;
         this.type = type;
         this.description = description;
+        this.deleted = false;
     }
 
     public void setName(String name) {
@@ -29,6 +31,10 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     public Long getId() {
@@ -47,6 +53,10 @@ public class Item {
         return description;
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
@@ -54,6 +64,7 @@ public class Item {
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", description='" + description + '\'' +
+                ", deleted=" + deleted +
                 '}';
     }
 }

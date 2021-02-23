@@ -12,6 +12,7 @@ public class OrderDetail {
     private Long id;
     private String code;
     private Date date;
+    private String status;
 
     @OneToMany
     private List<Item> items;
@@ -19,6 +20,14 @@ public class OrderDetail {
     private User user;
 
     public OrderDetail() {
+    }
+
+    public OrderDetail(String code, Date date, List<Item> items, User user) {
+        this.code = code;
+        this.date = date;
+        this.status = "Started";
+        this.items = items;
+        this.user = user;
     }
 
     public void setCode(String code) {
@@ -35,6 +44,10 @@ public class OrderDetail {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getId() {
@@ -57,13 +70,18 @@ public class OrderDetail {
         return user;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     @Override
     public String toString() {
         return "OrderDetail{" +
                 "id=" + id +
                 ", code='" + code + '\'' +
                 ", date=" + date +
-                ", items=" + items.toString() +
+                ", status='" + status + '\'' +
+                ", items=" + items +
                 ", user=" + user +
                 '}';
     }

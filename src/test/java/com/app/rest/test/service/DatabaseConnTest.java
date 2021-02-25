@@ -1,14 +1,5 @@
 package com.app.rest.test.service;
 
-import com.app.rest.model.Item;
-import com.app.rest.service.ItemService;
-import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-
 
 public class DatabaseConnTest {
 

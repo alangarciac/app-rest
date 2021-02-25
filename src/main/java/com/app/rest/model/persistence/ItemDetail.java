@@ -1,9 +1,9 @@
-package com.app.rest.model;
+package com.app.rest.model.persistence;
 
 import javax.persistence.*;
 
 @Entity
-public class Item {
+public class ItemDetail {
     @Id
     @GeneratedValue
     private Long id;
@@ -12,9 +12,9 @@ public class Item {
     private String description;
     private boolean deleted;
 
-    public Item() {
+    public ItemDetail() {
     }
-    public Item(String name, String type, String description, boolean deleted) {
+    public ItemDetail(String name, String type, String description, boolean deleted) {
         this.name = name;
         this.type = type;
         this.description = description;

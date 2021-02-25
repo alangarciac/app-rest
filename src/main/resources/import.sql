@@ -1,10 +1,10 @@
-insert into ITEM values(1,false, 'fideos con salsa de tomate', 'fideos', 'vegano');
-insert into ITEM values(2, false,'un bife', 'carne', 'no-vegano');
-insert into ITEM values(3, false,'milange en 2 panes', 'sambuches', 'no-vegano');
-insert into USER values (1, false, 'joe', 'joe@example');
-insert into USER values (2, false, 'juampi', 'juampi@example');
-insert into ORDERDETAIL values (1, 'PedidosYA', '2021-02-19', 'Created', 1);
-insert into ORDERDETAIL values (2, 'PedidosYA', '2021-02-19', 'Created', 2);
+insert into ITEM_DETAIL values(1,false, 'fideos con salsa de tomate', 'fideos', 'vegano');
+insert into ITEM_DETAIL values(2, false,'un bife', 'carne', 'no-vegano');
+insert into ITEM_DETAIL values(3, false,'milange en 2 panes', 'sambuches', 'no-vegano');
+insert into USER_DETAIL values (1, false, 'joe', 'joe@example');
+insert into USER_DETAIL values (2, false, 'juampi', 'juampi@example');
+insert into ORDERDETAIL values (1, 'PedidosYA', '2021-02-19', 'PENDING', 1);
+insert into ORDERDETAIL values (2, 'PedidosYA', '2021-02-19', 'IN_PROGRESS', 2);
 insert into ORDERDETAIL_ITEMS values (1,1);
 insert into ORDERDETAIL_ITEMS values (1,3);
 insert into ORDERDETAIL_ITEMS values (2,2);

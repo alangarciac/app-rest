@@ -1,7 +1,8 @@
-package com.app.rest.model;
+package com.app.rest.model.persistence;
 
 import javax.persistence.*;
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,19 +16,19 @@ public class OrderDetail {
     private String status;
 
     @OneToMany
-    private List<Item> items;
+    private List<ItemDetail> itemDetails;
     @OneToOne
-    private User user;
+    private UserDetail userDetail;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(String code, Date date, String status, List<Item> items, User user) {
+    public OrderDetail(String code, Date date, String status, List<ItemDetail> itemDetails, UserDetail userDetail) {
         this.code = code;
         this.date = date;
         this.status = status;
-        this.items = items;
-        this.user = user;
+        this.itemDetails = itemDetails;
+        this.userDetail = userDetail;
     }
 
     public void setCode(String code) {
@@ -38,12 +39,12 @@ public class OrderDetail {
         this.date = date;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setItems(List<ItemDetail> itemDetails) {
+        this.itemDetails = itemDetails;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserDetail userDetail) {
+        this.userDetail = userDetail;
     }
 
     public void setStatus(String status) {
@@ -62,12 +63,12 @@ public class OrderDetail {
         return date;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<ItemDetail> getItems() {
+        return itemDetails;
     }
 
-    public User getUser() {
-        return user;
+    public UserDetail getUser() {
+        return userDetail;
     }
 
     public String getStatus() {
@@ -81,8 +82,8 @@ public class OrderDetail {
                 ", code='" + code + '\'' +
                 ", date=" + date +
                 ", status='" + status + '\'' +
-                ", items=" + items +
-                ", user=" + user +
+                ", items=" + itemDetails +
+                ", user=" + userDetail +
                 '}';
     }
 }

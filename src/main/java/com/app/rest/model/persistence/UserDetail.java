@@ -1,12 +1,11 @@
-package com.app.rest.model;
+package com.app.rest.model.persistence;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
-public class User {
+public class UserDetail {
     @Id
     @GeneratedValue
     private Long id;
@@ -14,10 +13,10 @@ public class User {
     private String email;
     private boolean deleted;
 
-    public User() {
+    public UserDetail() {
     }
 
-    public User(String name, String email, boolean deleted) {
+    public UserDetail(String name, String email, boolean deleted) {
         this.name = name;
         this.email = email;
         this.deleted = deleted;

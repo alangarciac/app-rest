@@ -1,28 +1,41 @@
 package com.app.rest.service;
 
-import com.app.rest.model.Item;
-import com.app.rest.model.OrderDetail;
-import com.app.rest.repository.OrderRepo;
+import com.app.rest.exception.OrderNotFoundException;
+import com.app.rest.model.dto.Order;
+import com.app.rest.dao.OrderDAO;
+import org.apache.commons.lang3.NotImplementedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OrderService {
 
-    @Autowired
-    private OrderRepo orderRepo;
+    private static Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
 
-    public List<OrderDetail> getOrders() throws InterruptedException {
-        return orderRepo.findAll();
+    @Autowired
+    private OrderDAO orderDAO;
+
+    // TODO in progress
+    public List<Order> getOrders() {
+        throw new NotImplementedException();
     }
-    public Optional<OrderDetail> getOrder(Long id) throws InterruptedException {
-        return orderRepo.findById(id);
+
+    public Order findOrderById(Long id) throws OrderNotFoundException, IllegalStateException {
+        try{
+            return orderDAO.retrieveOrderById(id);
+        } catch (OrderNotFoundException | IllegalStateException e){
+            LOGGER.error("Error trying retrieve order with id {}. Caused by[{}]", id, e.getMessage());
+            throw e;
+        }
     }
-    public Long saveOrder(OrderDetail order) throws InterruptedException {
-        return orderRepo.save(order).getId();
+
+    // TODO in progress
+    public Long saveOrder(Order order) throws InterruptedException {
+        throw new NotImplementedException();
     }
 
 }

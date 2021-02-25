@@ -16,7 +16,7 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("/order/{id}")
-    public ResponseEntity<Order> retrieveOrder(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<Order> retrieveOrder(@PathVariable("id") Long id) {
         try{
             Order order = orderService.findOrderById(Optional.ofNullable(id).orElseThrow(IllegalStateException::new));
             return ResponseEntity.ok(order);

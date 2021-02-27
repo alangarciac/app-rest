@@ -1,4 +1,4 @@
-# Welcome to API REST training camp!
+# Welcome to API REST training camp! :man_technologist:
 
 ## app-rest setUp
 
@@ -12,4 +12,4 @@
  
 ## Intrests links
 
-[Best practices to develop REST-API's](https://phauer.com/2015/restful-api-design-best-practices/)
+* [Best practices to develop REST-API's](https://phauer.com/2015/restful-api-design-best-practices/)

@@ -64,4 +64,17 @@ public class ItemController {
             return ResponseEntity.unprocessableEntity().build();
         }
     }
+    @PutMapping("/items/{id}")
+    public ResponseEntity<?> updateItem(@PathVariable("id") Long id, @RequestBody ItemDTO itemDTO) {
+        try {
+            itemDTO.validate();   //Validacion de logica en el DTO.
+            itemDTO = itemService.updateItem(id, itemDTO);
+            return ResponseEntity.ok(itemDTO);
+        } catch (NoSuchElementException nf) {
+            return ResponseEntity.notFound().build();
+        } catch (DataAccessException ie) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+    }
+
 }

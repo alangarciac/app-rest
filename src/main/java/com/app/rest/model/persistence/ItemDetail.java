@@ -23,13 +23,6 @@ public class ItemDetail {
         this.description = description;
         this.deleted = deleted;
     }
-    public ItemDetail(ItemDTO itemDTO) {
-        this.name = itemDTO.getName();
-        this.type = itemDTO.getType();
-        this.description = itemDTO.getDescription();
-        this.deleted = itemDTO.isDeleted();
-    }
-
 
     public void setName(String name) {
         this.name = name;

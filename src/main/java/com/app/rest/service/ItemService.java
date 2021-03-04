@@ -3,7 +3,6 @@ package com.app.rest.service;
 import com.app.rest.model.dto.ItemDTO;
 import com.app.rest.model.persistence.ItemDetail;
 import com.app.rest.repository.ItemRepo;
-import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,25 +20,11 @@ public class ItemService {
     @Autowired
     private ItemRepo itemRepo;
 
-    //as guidance
-    /*public List<ItemDetail> getItems() throws InterruptedException {
-        return itemRepo.findAll();
-    }
-    public ItemDetail getItem(Long id) throws InterruptedException {
-        return itemRepo.findById(id).get;
-    }
-    public Long saveItem(ItemDetail itemDetail) throws InterruptedException {
-        return itemRepo.save(itemDetail).getId();
-    }
-    public ItemDetail deleteItem(ItemDetail itemDetail) {
-        itemDetail.setDeleted(true);
-        return itemRepo.save(itemDetail);
-    }*/
     public ItemDTO getItemById(Long id) {
         try {
             return new ItemDTO(itemRepo.findById(id).get());
         } catch (NoSuchElementException e) {
-            LOGGER.error("Error trying retrieve order with id {}. Caused by[{}]", id, e.getMessage());
+            LOGGER.error("Error trying retrieve item with id {}. Caused by[{}]", id, e.getMessage());
             throw e;
         }
     }
@@ -53,8 +38,8 @@ public class ItemService {
         return  itemsDTO;
     }
 
-    public ItemDTO saveItem(ItemDTO itemDTO) {
-        ItemDetail itemDetail = new ItemDetail(itemDTO);
+    public ItemDTO saveItem(ItemDTO itemDTO) { //Esta bien que no haya control de duplicados?
+        ItemDetail itemDetail = new ItemDetail(itemDTO.getName(), itemDTO.getType(), itemDTO.getDescription(), itemDTO.isDeleted());
         try {
             return new ItemDTO(itemRepo.save(itemDetail));
         } catch (DataAccessException ie) {
@@ -70,6 +55,22 @@ public class ItemService {
             return new ItemDTO(itemRepo.save(itemDetail));
         } catch (NoSuchElementException e) {
             LOGGER.error("Error trying retrieve order with id {}. Caused by[{}]", id, e.getMessage());
+            throw e;
+        }
+    }
+    public ItemDTO updateItem(Long id, ItemDTO itemDTO) {  //Hago un update o deberia chequear dupes en el new y en todo caso updatear?
+        try {
+            ItemDetail itemDetail = itemRepo.findById(id).get();
+            itemDetail.setName(itemDTO.getName());
+            itemDetail.setDescription(itemDTO.getDescription());
+            itemDetail.setType(itemDTO.getType());
+            itemDetail.setDeleted(itemDTO.isDeleted());
+            return new ItemDTO(itemRepo.save(itemDetail));
+        } catch (NoSuchElementException e) {
+            LOGGER.error("Error trying retrieve item with id {}. Caused by[{}]", id, e.getMessage());
+            throw e;
+        } catch (DataAccessException e) {
+            LOGGER.error("Error trying to update item {}. Caused by[{}]", id, e.getMessage());
             throw e;
         }
     }

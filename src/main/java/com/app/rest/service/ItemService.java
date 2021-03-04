@@ -63,6 +63,14 @@ public class ItemService {
         }
     }
 
-    //TODO
-    public ItemDTO deleteItem(ItemDTO itemDTO) {throw new NotImplementedException();}
+    public ItemDTO deleteItem(Long id) {
+        try {
+            ItemDetail itemDetail = itemRepo.findById(id).get();
+            itemDetail.setDeleted(true);
+            return new ItemDTO(itemRepo.save(itemDetail));
+        } catch (NoSuchElementException e) {
+            LOGGER.error("Error trying retrieve order with id {}. Caused by[{}]", id, e.getMessage());
+            throw e;
+        }
+    }
 }

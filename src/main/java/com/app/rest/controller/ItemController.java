@@ -56,8 +56,7 @@ public class ItemController {
     @DeleteMapping("/items/{id}")
     public ResponseEntity<?> deleteItem(@PathVariable("id") Long id) {
         try {
-            ItemDTO itemDTO = itemService.getItemById(Optional.ofNullable(id).orElseThrow(IllegalStateException::new));
-            itemDTO = itemService.deleteItem(itemDTO); //Recupero y borro o borro de una?
+            ItemDTO itemDTO = itemService.deleteItem(Optional.ofNullable(id).orElseThrow(IllegalStateException::new));
             return ResponseEntity.ok(itemDTO);
         } catch (NoSuchElementException nf) {
             return ResponseEntity.notFound().build();

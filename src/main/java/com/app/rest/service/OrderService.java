@@ -1,7 +1,7 @@
 package com.app.rest.service;
 
 import com.app.rest.exception.OrderNotFoundException;
-import com.app.rest.model.dto.Order;
+import com.app.rest.model.dto.OrderDTO;
 import com.app.rest.dao.OrderDAO;
 import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
@@ -20,11 +20,11 @@ public class OrderService {
     private OrderDAO orderDAO;
 
     // TODO in progress
-    public List<Order> getOrders() {
+    public List<OrderDTO> getOrders() {
         throw new NotImplementedException();
     }
 
-    public Order findOrderById(Long id) throws OrderNotFoundException, IllegalStateException {
+    public OrderDTO findOrderById(Long id) throws OrderNotFoundException, IllegalStateException {
         try{
             return orderDAO.retrieveOrderById(id);
         } catch (OrderNotFoundException | IllegalStateException e){
@@ -34,7 +34,7 @@ public class OrderService {
     }
 
     // TODO in progress
-    public Long saveOrder(Order order) throws InterruptedException {
+    public Long saveOrder(OrderDTO orderDTO) throws InterruptedException {
         throw new NotImplementedException();
     }
 

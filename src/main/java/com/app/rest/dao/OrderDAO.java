@@ -1,7 +1,7 @@
 package com.app.rest.dao;
 
 import com.app.rest.exception.OrderNotFoundException;
-import com.app.rest.model.dto.Order;
+import com.app.rest.model.dto.OrderDTO;
 import com.app.rest.model.persistence.OrderDetail;
 import com.app.rest.repository.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class OrderDAO {
     @Autowired
     private OrderRepo orderRepo;
 
-    public Order retrieveOrderById(Long id) throws OrderNotFoundException, IllegalStateException {
+    public OrderDTO retrieveOrderById(Long id) throws OrderNotFoundException, IllegalStateException {
 
         // Acá llama a ordenRepo por el approach que elegimos. En este punto se interactúa con la DB.
         // por ejemplo si no tuvieramos Hibernate, las queries se harían aca y se mapearian al objeto persistente (OrderDetail)
@@ -22,6 +22,6 @@ public class OrderDAO {
                 .orElseThrow(() -> new OrderNotFoundException(String.format("Order with id[%s] not found.", id)));
 
         // retorna un DTO (objeto manipulable en la app)
-        return new Order(orderDetail);
+        return new OrderDTO(orderDetail);
     }
 }

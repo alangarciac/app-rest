@@ -43,7 +43,7 @@ public class ItemController {
     @PostMapping("/items/new")
     public ResponseEntity<?> createItem(@RequestBody ItemDTO itemDTO) {
         try {
-            itemDTO.validate();   //Validacion de logica en el DTO.
+            itemDTO.validate();   //Debo validar porque el DTO se autocarga con el json usando reflexion y pueden qdar campos nulos.
             itemDTO = itemService.saveItem(itemDTO);
             return ResponseEntity.ok(itemDTO);
         } catch (IllegalArgumentException is) {
@@ -67,7 +67,7 @@ public class ItemController {
     @PutMapping("/items/{id}")
     public ResponseEntity<?> updateItem(@PathVariable("id") Long id, @RequestBody ItemDTO itemDTO) {
         try {
-            itemDTO.validate();   //Validacion de logica en el DTO.
+            itemDTO.validate();   //Debo validar porque el DTO se autocarga con el json usando reflexion y pueden qdar campos nulos.
             itemDTO = itemService.updateItem(id, itemDTO);
             return ResponseEntity.ok(itemDTO);
         } catch (NoSuchElementException nf) {

@@ -2,6 +2,7 @@ package com.app.rest.test.service;
 
 
 import com.app.rest.model.dto.ItemDTO;
+import com.app.rest.model.persistence.ItemDetail;
 import com.app.rest.service.ItemService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,17 @@ public class ItemTest {
         itemDTO.validate();
         System.out.println(itemService.saveItem(itemDTO));
 
+    }
+    @Test
+    public void testDeleteItem() throws Exception{
+        System.out.println(itemService.deleteItem(2L));
+    }
+    @Test
+    public void testUpdateItem() throws Exception{
+        System.out.println(itemService.getItemById(1L));
+        ItemDTO itemDTO = itemService.getItemById(1L);
+        itemDTO.setName("test");
+        System.out.println(itemService.updateItem(itemDTO.getId(), itemDTO));
+        System.out.println(itemService.getItems());
     }
 }

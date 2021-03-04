@@ -24,7 +24,7 @@ public class ItemDTO {
         this.name = itemDetail.getName();
         this.description = itemDetail.getDescription();
         this.deleted = itemDetail.isDeleted();
-        try {   //ACA NO SE SI ES NECESARIO ESTE TRY-CATCH, pasa q en el order vi que lo hiciste con OPTIONAL y sino tira una excepcion, y esto entiendo seria la manera sin usar esa manera pseudofuncional de programar.
+        try {   //ACA NO SE SI ES NECESARIO ESTE TRY-CATCH, pasa q en el order vi que lo hiciste con OPTIONAL y sino tira una excepcion, y esto entiendo seria la manera sin usar esa manera java8 de programar.
             this.type = ItemType.fromString(itemDetail.getType());
         }catch (IllegalArgumentException ia) {
             throw new IllegalArgumentException(String.format("Invalid type [%s]", itemDetail.getType())); //CREO QUE NUNCA RECUPERARIAMOS DE LA BASE UN TIPO INVALIDO, PERO ESTA POR COHERENCIA CON EL ORDER
@@ -60,11 +60,8 @@ public class ItemDTO {
         this.name = name;
     }
 
-    /*public void setType(ItemType type) {
+    public void setType(ItemType type) {
         this.type = type;
-    }
-    public void setType(String type) {
-        this.type = ItemType.fromString(type);
     }
 
     public void setDescription(String description) {
@@ -73,7 +70,7 @@ public class ItemDTO {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
-    }*/
+    }
 
     @Override
     public String toString() {

@@ -31,11 +31,16 @@ public class ItemService {
 
     public List<ItemDTO> getItems()  {
         List<ItemDTO> itemsDTO = new ArrayList<ItemDTO>();
-        List<ItemDetail> list = itemRepo.findAll();
-        for (ItemDetail x : list) {
-            itemsDTO.add(new ItemDTO(x));
+        try {
+            List<ItemDetail> list = itemRepo.findAll();
+            for (ItemDetail x : list) {
+                itemsDTO.add(new ItemDTO(x));
+                }
+            return  itemsDTO;
+        } catch (DataAccessException ie) {
+            LOGGER.error("Error trying to retrieve items . Caused by[{}]", ie.getMessage());
+            throw ie;
         }
-        return  itemsDTO;
     }
 
     public ItemDTO saveItem(ItemDTO itemDTO) { //Esta bien que no haya control de duplicados?

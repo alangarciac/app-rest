@@ -6,21 +6,21 @@ import com.app.rest.model.persistence.OrderDetail;
 
 import java.util.Optional;
 
-public class Order {
+public class OrderDTO {
 
     private Long id;
     private String code;
     private String date;
     private OrderStatus status;
 
-    private Order(Long id, String code, String date, OrderStatus status) {
+    private OrderDTO(Long id, String code, String date, OrderStatus status) {
         this.id = id;
         this.code = code;
         this.date = date;
         this.status = status;
     }
 
-    public Order(OrderDetail orderDetail) throws IllegalStateException {
+    public OrderDTO(OrderDetail orderDetail) throws IllegalStateException {
         this(
                 orderDetail.getId(),
                 orderDetail.getCode(),

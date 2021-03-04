@@ -72,6 +72,8 @@ public class ItemController {
             return ResponseEntity.ok(itemDTO);
         } catch (NoSuchElementException nf) {
             return ResponseEntity.notFound().build();
+        } catch (IllegalArgumentException is) {
+            return ResponseEntity.badRequest().body(is.getMessage());
         } catch (DataAccessException ie) {
             return ResponseEntity.unprocessableEntity().build();
         }

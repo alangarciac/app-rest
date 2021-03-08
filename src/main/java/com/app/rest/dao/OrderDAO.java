@@ -17,10 +17,10 @@ public class OrderDAO {
     public OrderDTO retrieveOrderById(Long id) throws OrderNotFoundException, IllegalStateException {
         OrderDetail orderDetail = Optional.ofNullable(orderRepo.findById(id)).get()
                 .orElseThrow(() -> new OrderNotFoundException(String.format("Order with id[%s] not found.", id)));
-        return new Order(orderDetail);
+        return new OrderDTO(orderDetail);
     }
 
-    public Long createNewOrder(Order order) {
+    public Long createNewOrder(OrderDTO order) {
         return Optional.ofNullable(orderRepo.save(new OrderDetail(order)).getId()).orElseThrow(IllegalStateException::new);
     }
 }

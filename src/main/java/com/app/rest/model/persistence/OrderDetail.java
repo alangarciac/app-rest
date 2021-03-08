@@ -1,6 +1,6 @@
 package com.app.rest.model.persistence;
 
-import com.app.rest.model.dto.Order;
+import com.app.rest.model.dto.OrderDTO;
 
 import javax.persistence.*;
 
@@ -34,7 +34,7 @@ public class OrderDetail {
         this.userDetail = userDetail;
     }
 
-    public OrderDetail(Order order) {
+    public OrderDetail(OrderDTO order) {
         this(order.getCode(),order.getDate(),order.getStatus().getValue(), order.getItems(), order.getUser());
     }
 

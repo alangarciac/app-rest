@@ -17,7 +17,7 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("/orders/{id}")
-    public ResponseEntity<Order> retrieveOrder(@PathVariable("id") Long id) {
+    public ResponseEntity<OrderDTO> retrieveOrder(@PathVariable("id") Long id) {
         try{
             OrderDTO orderDTO = orderService.findOrderById(Optional.ofNullable(id).orElseThrow(IllegalStateException::new));
             return ResponseEntity.ok(orderDTO);
@@ -29,7 +29,7 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<Long> createOrder(@RequestBody Order order) {
+    public ResponseEntity<Long> createOrder(@RequestBody OrderDTO order) {
         try{
             if(order.isSupported()) {
                 return new ResponseEntity<Long>(orderService.createNewOrder(order), HttpStatus.CREATED);

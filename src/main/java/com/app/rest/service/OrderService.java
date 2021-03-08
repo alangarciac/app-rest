@@ -35,7 +35,7 @@ public class OrderService {
     }
 
     // TODO in progress
-    public Long createNewOrder(Order order) {
+    public Long createNewOrder(OrderDTO order) {
         return orderDAO.createNewOrder(order);
     }
 

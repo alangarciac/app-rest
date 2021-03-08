@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-public class OrderDTO {
+public class OrderDTO implements Checkable {
 
     private Long id;
     private String code;
@@ -23,7 +23,7 @@ public class OrderDTO {
     // TODO must be a User
     private UserDetail user;
 
-    private Order(Long id, String code, String date, OrderStatus status) {
+    private OrderDTO(Long id, String code, String date, OrderStatus status) {
         this.id = id;
         this.code = code;
         this.date = date;

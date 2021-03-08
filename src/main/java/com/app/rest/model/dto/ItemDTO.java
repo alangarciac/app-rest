@@ -5,6 +5,7 @@ import com.app.rest.exception.ItemValidateException;
 import com.app.rest.model.persistence.ItemDetail;
 import org.aspectj.bridge.Message;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 
 import java.text.MessageFormat;
 import java.util.Calendar;
@@ -97,7 +98,7 @@ public class ItemDTO {
     }
 
     public void validate () throws ItemValidateException{
-        if (this.name == null || this.description == null){ //type boolean cant be null, when null->false, which is ok here.
+        if (!StringUtils.hasText(name) || !StringUtils.hasText(description)){ //type boolean cant be null, when null->false, which is ok here.
             throw new ItemValidateException(MessageFormat.format("Object Missing Fields - current values {0},{1},{2},{3}", this.name, this.description, this.type, this.deleted));
         }
     }

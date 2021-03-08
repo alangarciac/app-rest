@@ -23,10 +23,10 @@ public class ItemService {
     @Autowired
     private ItemRepo itemRepo;
 
-    static Specification<ItemDetail> hasName(String name) {
+    private static Specification<ItemDetail> hasName(String name) {
         return (ItemDetail, cq, cb) -> cb.equal(ItemDetail.get("name"), name);
     }
-    static Specification<ItemDetail> descriptionContains(String description) {
+    private static Specification<ItemDetail> descriptionContains(String description) {
         return (ItemDetail, cq, cb) -> cb.like(ItemDetail.get("description"), "%" + description + "%");
     }
 

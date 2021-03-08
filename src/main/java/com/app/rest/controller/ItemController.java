@@ -1,14 +1,14 @@
 package com.app.rest.controller;
 
+import com.app.rest.exception.ItemException;
+import com.app.rest.exception.ItemNotFoundException;
 import com.app.rest.model.dto.ItemDTO;
 import com.app.rest.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -24,7 +24,7 @@ public class ItemController {
             return ResponseEntity.ok(itemDTO);
         } catch (IllegalStateException ie) {
             return ResponseEntity.unprocessableEntity().build();
-        } catch (NoSuchElementException nf) {
+        } catch (ItemNotFoundException | ItemException nf) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -33,9 +33,7 @@ public class ItemController {
         try{
             List<ItemDTO> itemsDTO = itemService.getItems();
             return ResponseEntity.ok(itemsDTO);
-        } catch (IllegalStateException ie) {
-            return ResponseEntity.unprocessableEntity().build();
-        } catch (DataAccessException ie) {
+        } catch (IllegalStateException | ItemException ie) {
             return ResponseEntity.unprocessableEntity().build();
         }
     }
@@ -48,7 +46,7 @@ public class ItemController {
             return ResponseEntity.ok(itemDTO);
         } catch (IllegalArgumentException is) {
             return ResponseEntity.badRequest().body(is.getMessage());
-        } catch (DataAccessException ie) {
+        } catch (ItemException ie) {
             return ResponseEntity.unprocessableEntity().build();
         }
 
@@ -58,9 +56,9 @@ public class ItemController {
         try {
             ItemDTO itemDTO = itemService.deleteItem(Optional.ofNullable(id).orElseThrow(IllegalStateException::new));
             return ResponseEntity.ok(itemDTO);
-        } catch (NoSuchElementException nf) {
+        } catch (ItemNotFoundException nf) {
             return ResponseEntity.notFound().build();
-        } catch (DataAccessException ie) {
+        } catch (ItemException ie) {
             return ResponseEntity.unprocessableEntity().build();
         }
     }
@@ -70,11 +68,11 @@ public class ItemController {
             itemDTO.validate();   //Debo validar porque el DTO se autocarga con el json usando reflexion y pueden qdar campos nulos.
             itemDTO = itemService.updateItem(id, itemDTO);
             return ResponseEntity.ok(itemDTO);
-        } catch (NoSuchElementException nf) {
+        } catch (ItemNotFoundException nf) {
             return ResponseEntity.notFound().build();
         } catch (IllegalArgumentException is) {
             return ResponseEntity.badRequest().body(is.getMessage());
-        } catch (DataAccessException ie) {
+        } catch (ItemException ie) {
             return ResponseEntity.unprocessableEntity().build();
         }
     }

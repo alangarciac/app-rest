@@ -27,7 +27,6 @@ public class ItemService {
     public ItemDTO getItemById(Long id) throws ItemNotFoundException, ItemException {
         try {
             Optional<ItemDetail> oiDTO = itemRepo.findById(id);
-
             if (oiDTO.isPresent()) { return new ItemDTO(oiDTO.get()); }
             else {
                 String message = MessageFormat.format("Error trying retrieve item with id {0}. Caused by[{1}]", id, "item not found");
@@ -68,35 +67,38 @@ public class ItemService {
     }
 
     public ItemDTO deleteItem(Long id) throws ItemException, ItemNotFoundException {
-        Optional<ItemDetail> oiDTO = itemRepo.findById(id);
-        if (oiDTO.isPresent()) {
-            ItemDetail itemDetail = oiDTO.get();
-            itemDetail.setDeleted(true);
-            try {
+        try {
+            Optional<ItemDetail> oiDTO = itemRepo.findById(id);
+            if (oiDTO.isPresent()) {
+                ItemDetail itemDetail = oiDTO.get();
+                itemDetail.setDeleted(true);
                 return new ItemDTO(itemRepo.save(itemDetail));
-            } catch (DataAccessException ie) {
-                String message = MessageFormat.format("Error trying to save item {0}. Caused by[{1}]", itemDetail, ie.getMessage());
-                LOGGER.error(message);
-                throw new ItemException(message);
+            } else {
+                    String message = MessageFormat.format("Error trying retrieve item with id {0}. Caused by[{1}]", id, "item not found");
+                    LOGGER.error(message);
+                    throw new ItemNotFoundException(message);
             }
-        } else {
-                String message = MessageFormat.format("Error trying retrieve item with id {0}. Caused by[{1}]", id, "item not found");
-                LOGGER.error(message);
-                throw new ItemNotFoundException(message);
+        } catch (DataAccessException ie) {
+            String message = MessageFormat.format("Error trying to save item  with id {0}. Caused by[{1}]", id, ie.getMessage());
+            LOGGER.error(message);
+            throw new ItemException(message);
         }
     }
     public ItemDTO updateItem(Long id, ItemDTO itemDTO) throws ItemException, ItemNotFoundException {  //Hago un update o deberia chequear dupes en el new y en todo caso updatear?
         try {
-            ItemDetail itemDetail = itemRepo.findById(id).get();
-            itemDetail.setName(itemDTO.getName());
-            itemDetail.setDescription(itemDTO.getDescription());
-            itemDetail.setType(itemDTO.getType());
-            itemDetail.setDeleted(itemDTO.isDeleted());
-            return new ItemDTO(itemRepo.save(itemDetail));
-        } catch (NoSuchElementException e) {
-            String message = MessageFormat.format("Error trying to update item {0}. Caused by[{1}]", id, e.getMessage());
-            LOGGER.error(message);
-            throw new ItemNotFoundException(message);
+            Optional<ItemDetail> oiDTO = itemRepo.findById(id);
+            if (oiDTO.isPresent()) {
+                ItemDetail itemDetail = oiDTO.get();
+                itemDetail.setName(itemDTO.getName());
+                itemDetail.setDescription(itemDTO.getDescription());
+                itemDetail.setType(itemDTO.getType());
+                itemDetail.setDeleted(itemDTO.isDeleted());
+                return new ItemDTO(itemRepo.save(itemDetail));
+            } else {
+                String message = MessageFormat.format("Error trying to update item {0}. Caused by[{1}]", id, "item not found");
+                LOGGER.error(message);
+                throw new ItemNotFoundException(message);
+            }
         } catch (DataAccessException e) {
             String message = MessageFormat.format("Error trying to update item {0}. Caused by[{1}]", id, e.getMessage());
             LOGGER.error(message);

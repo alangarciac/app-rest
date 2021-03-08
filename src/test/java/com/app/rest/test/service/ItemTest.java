@@ -3,16 +3,15 @@ package com.app.rest.test.service;
 
 import com.app.rest.exception.ItemException;
 import com.app.rest.exception.ItemNotFoundException;
+import com.app.rest.exception.ItemTypeException;
+import com.app.rest.exception.ItemValidateException;
 import com.app.rest.model.dto.ItemDTO;
-import com.app.rest.model.persistence.ItemDetail;
 import com.app.rest.service.ItemService;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.NoSuchElementException;
+import java.util.Calendar;
 
 @SpringBootTest
 public class ItemTest {
@@ -27,7 +26,8 @@ public class ItemTest {
 
     @Test
     public void testItem1() throws ItemNotFoundException, ItemException {
-        itemService.getItemById(1L);
+        ItemDTO itemDTO = itemService.getItemById(1L);
+        System.out.println("Item retrieved "+ itemDTO);
         try {
             itemService.getItemById(8L);
         } catch (ItemNotFoundException nf) {
@@ -47,18 +47,27 @@ public class ItemTest {
      */
 
     @Test
-    public void testSaveItem() throws Exception{
-        ItemDTO itemDTO = new ItemDTO("test", "test","test",false);
+    public void testSaveItem() {
+        ItemDTO itemDTO;
         try {
+            itemDTO = new ItemDTO("test", "test","test",false, Calendar.getInstance().getTimeInMillis());
             itemDTO.validate();
-        } catch (IllegalArgumentException ie) {
+        } catch (ItemValidateException | ItemTypeException ie) {
             ie.printStackTrace();
             System.out.println("Illegal type value, which is expected");
         }
-        itemDTO = new ItemDTO("test", "VEGAN","test",false);
-        itemDTO.validate();
-        System.out.println(itemService.saveItem(itemDTO));
-
+        try {
+            itemDTO = new ItemDTO("test", "VEGAN","test",false, Calendar.getInstance().getTimeInMillis());
+            itemDTO.validate();
+            System.out.println(itemService.saveItem(itemDTO));
+            itemDTO = new ItemDTO("test", "VEGAN","test",false,Calendar.getInstance().getTimeInMillis());
+            itemDTO.validate();
+            System.out.println(itemService.saveItem(itemDTO));
+        } catch (ItemValidateException | ItemTypeException ie) {
+            ie.printStackTrace(); //Nunca va a saltar aca
+        } catch (ItemException ie) {
+            System.out.println(ie.getMessage() + " this is expected!");
+        }
     }
     @Test
     public void testDeleteItem() throws Exception{

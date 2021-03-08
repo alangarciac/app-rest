@@ -1,8 +1,14 @@
 package com.app.rest.model.dto;
 
+import com.app.rest.exception.ItemTypeException;
+import com.app.rest.exception.ItemValidateException;
 import com.app.rest.model.persistence.ItemDetail;
+import org.aspectj.bridge.Message;
 import org.springframework.http.ResponseEntity;
 
+import java.text.MessageFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 public class ItemDTO {
@@ -12,25 +18,23 @@ public class ItemDTO {
     private ItemType type;
     private String description;
     private boolean deleted;
+    private Date last_modified;
 
-    public ItemDTO(String name, String type, String description, boolean deleted) {
+    public ItemDTO(String name, String type, String description, boolean deleted, Long last_modified) throws ItemTypeException {
         this.name = name;
         this.type = ItemType.fromString(type);
         this.description = description;
         this.deleted = deleted;
+        this.last_modified = new Date(last_modified);
     }
-    public ItemDTO(ItemDetail itemDetail) {
+    public ItemDTO(ItemDetail itemDetail) throws ItemTypeException {
         this.id = itemDetail.getId();
         this.name = itemDetail.getName();
         this.description = itemDetail.getDescription();
         this.deleted = itemDetail.isDeleted();
-        try {   //ACA NO SE SI ES NECESARIO ESTE TRY-CATCH, pasa q en el order vi que lo hiciste con OPTIONAL y sino tira una excepcion, y esto entiendo seria la manera sin usar esa manera java8 de programar.
-            this.type = ItemType.fromString(itemDetail.getType());
-        }catch (IllegalArgumentException ia) {
-            throw new IllegalArgumentException(String.format("Invalid type [%s]", itemDetail.getType())); //CREO QUE NUNCA RECUPERARIAMOS DE LA BASE UN TIPO INVALIDO, PERO ESTA POR COHERENCIA CON EL ORDER
-        }
-
-     }
+        this.type = ItemType.fromString(itemDetail.getType());
+        this.last_modified = new Date(itemDetail.getLast_modified());
+    }
 
     public Long getId() {
         return id;
@@ -72,23 +76,29 @@ public class ItemDTO {
         this.deleted = deleted;
     }
 
+    public Date getLast_modified() {
+        return last_modified;
+    }
+
+    public void setLast_modified(Long last_modified) {
+        this.last_modified = new Date(last_modified);
+    }
+
     @Override
     public String toString() {
-        return "Item{" +
+        return "ItemDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
+                ", type=" + type +
                 ", description='" + description + '\'' +
                 ", deleted=" + deleted +
+                ", last_modified=" + last_modified +
                 '}';
     }
-    public void validate (){
-        if (this.name == null || this.description == null){ //type boolean cant be null, when null->false, which is ok here.
-            throw new IllegalArgumentException(String.format("Missing Fields on request"));
-        }
-        if (this.type == null) {
-            throw new IllegalArgumentException(String.format("Value for type missing or incorrect(non-existent)"));
-        }
 
+    public void validate () throws ItemValidateException{
+        if (this.name == null || this.description == null){ //type boolean cant be null, when null->false, which is ok here.
+            throw new ItemValidateException(MessageFormat.format("Object Missing Fields - current values {0},{1},{2},{3}", this.name, this.description, this.type, this.deleted));
+        }
     }
 }

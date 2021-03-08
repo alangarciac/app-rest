@@ -1,5 +1,9 @@
 package com.app.rest.model.dto;
 
+import com.app.rest.exception.ItemTypeException;
+
+import java.util.Arrays;
+
 public enum ItemType {
 
     VEGAN("VEGAN"),
@@ -16,13 +20,12 @@ public enum ItemType {
         return value;
     }
 
-    public static ItemType fromString(String itemtype) {
-        for (ItemType itemType : ItemType.values()) {
+    public static ItemType fromString(String itemtype) throws ItemTypeException {
+        for (ItemType itemType : values()) {
             if (itemType.getValue().equalsIgnoreCase(itemtype)) {
                 return itemType;
             }
         }
-        return null;
+        throw new ItemTypeException("Item Type not valid, types admitted:" + Arrays.toString(values()));
     }
-
 }

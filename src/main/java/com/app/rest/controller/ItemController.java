@@ -2,6 +2,7 @@ package com.app.rest.controller;
 
 import com.app.rest.exception.ItemException;
 import com.app.rest.exception.ItemNotFoundException;
+import com.app.rest.exception.ItemValidateException;
 import com.app.rest.model.dto.ItemDTO;
 import com.app.rest.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class ItemController {
@@ -20,11 +20,13 @@ public class ItemController {
     @GetMapping("/items/{id}")
     public ResponseEntity<ItemDTO> retrieveItem(@PathVariable("id") Long id) {
         try{
-            ItemDTO itemDTO = itemService.getItemById(Optional.ofNullable(id).orElseThrow(IllegalStateException::new));
+            //ItemDTO itemDTO = itemService.getItemById(Optional.ofNullable(id).orElseThrow(IllegalStateException::new));
+            ItemDTO itemDTO = itemService.getItemById(id);
             return ResponseEntity.ok(itemDTO);
-        } catch (IllegalStateException ie) {
+        //} catch (IllegalStateException|ItemException ie) {
+        } catch (ItemException ie) {
             return ResponseEntity.unprocessableEntity().build();
-        } catch (ItemNotFoundException | ItemException nf) {
+        } catch (ItemNotFoundException nf) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -41,11 +43,11 @@ public class ItemController {
     @PostMapping("/items/new")
     public ResponseEntity<?> createItem(@RequestBody ItemDTO itemDTO) {
         try {
-            itemDTO.validate();   //Debo validar porque el DTO se autocarga con el json usando reflexion y pueden qdar campos nulos.
+            itemDTO.validate();   //Must validate, DTO auto loaded from Json
             itemDTO = itemService.saveItem(itemDTO);
             return ResponseEntity.ok(itemDTO);
-        } catch (IllegalArgumentException is) {
-            return ResponseEntity.badRequest().body(is.getMessage());
+        } catch (ItemValidateException iv) {
+            return ResponseEntity.badRequest().body(iv.getMessage());
         } catch (ItemException ie) {
             return ResponseEntity.unprocessableEntity().build();
         }
@@ -54,7 +56,8 @@ public class ItemController {
     @DeleteMapping("/items/{id}")
     public ResponseEntity<?> deleteItem(@PathVariable("id") Long id) {
         try {
-            ItemDTO itemDTO = itemService.deleteItem(Optional.ofNullable(id).orElseThrow(IllegalStateException::new));
+            //ItemDTO itemDTO = itemService.deleteItem(Optional.ofNullable(id).orElseThrow(IllegalStateException::new));
+            ItemDTO itemDTO = itemService.deleteItem(id);
             return ResponseEntity.ok(itemDTO);
         } catch (ItemNotFoundException nf) {
             return ResponseEntity.notFound().build();
@@ -65,13 +68,13 @@ public class ItemController {
     @PutMapping("/items/{id}")
     public ResponseEntity<?> updateItem(@PathVariable("id") Long id, @RequestBody ItemDTO itemDTO) {
         try {
-            itemDTO.validate();   //Debo validar porque el DTO se autocarga con el json usando reflexion y pueden qdar campos nulos.
+            itemDTO.validate();   //Must validate, DTO auto loaded from Json
             itemDTO = itemService.updateItem(id, itemDTO);
             return ResponseEntity.ok(itemDTO);
+        } catch (ItemValidateException iv) {
+            return ResponseEntity.badRequest().body(iv.getMessage());
         } catch (ItemNotFoundException nf) {
             return ResponseEntity.notFound().build();
-        } catch (IllegalArgumentException is) {
-            return ResponseEntity.badRequest().body(is.getMessage());
         } catch (ItemException ie) {
             return ResponseEntity.unprocessableEntity().build();
         }

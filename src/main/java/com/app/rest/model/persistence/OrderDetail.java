@@ -18,6 +18,7 @@ public class OrderDetail {
     private String status;
 
     @OneToMany
+    @JoinTable(name = "ORDERDETAIL_ITEMDETAIL")
     private List<ItemDetail> itemDetails;
     @OneToOne
     private UserDetail userDetail;

@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-public class Order implements Checkable {
+public class OrderDTO {
 
     private Long id;
     private String code;
@@ -30,7 +30,7 @@ public class Order implements Checkable {
         this.status = status;
     }
 
-    public Order(OrderDetail orderDetail) throws IllegalStateException {
+    public OrderDTO(OrderDetail orderDetail) throws IllegalStateException {
         this(
                 orderDetail.getId(),
                 orderDetail.getCode(),

@@ -1,7 +1,7 @@
 package com.app.rest.controller;
 
 import com.app.rest.exception.OrderNotFoundException;
-import com.app.rest.model.dto.Order;
+import com.app.rest.model.dto.OrderDTO;
 import com.app.rest.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +19,8 @@ public class OrderController {
     @GetMapping("/orders/{id}")
     public ResponseEntity<Order> retrieveOrder(@PathVariable("id") Long id) {
         try{
-            Order order = orderService.findOrderById(Optional.ofNullable(id).orElseThrow(IllegalStateException::new));
-            return ResponseEntity.ok(order);
+            OrderDTO orderDTO = orderService.findOrderById(Optional.ofNullable(id).orElseThrow(IllegalStateException::new));
+            return ResponseEntity.ok(orderDTO);
         } catch (IllegalStateException ie) {
             return ResponseEntity.unprocessableEntity().build();
         } catch (OrderNotFoundException nf) {

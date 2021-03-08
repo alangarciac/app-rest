@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class OrderService {
 
     public Order findOrderById(Long id) throws OrderNotFoundException, IllegalStateException {
         try{
+            StringUtils.hasText("");
             return orderDAO.retrieveOrderById(id);
         } catch (OrderNotFoundException | IllegalStateException e){
             LOGGER.error("Error trying retrieve order with id {}. Caused by[{}]", id, e.getMessage());
@@ -34,8 +36,8 @@ public class OrderService {
     }
 
     // TODO in progress
-    public Long saveOrder(Order order) throws InterruptedException {
-        throw new NotImplementedException();
+    public Long createNewOrder(Order order) {
+        return orderDAO.createNewOrder(order);
     }
 
 }

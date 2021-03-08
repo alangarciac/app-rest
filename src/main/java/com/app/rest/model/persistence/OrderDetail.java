@@ -1,5 +1,7 @@
 package com.app.rest.model.persistence;
 
+import com.app.rest.model.dto.Order;
+
 import javax.persistence.*;
 
 import java.util.Date;
@@ -23,12 +25,16 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
-    public OrderDetail(String code, Date date, String status, List<ItemDetail> itemDetails, UserDetail userDetail) {
+    private OrderDetail(String code, Date date, String status, List<ItemDetail> itemDetails, UserDetail userDetail) {
         this.code = code;
         this.date = date;
         this.status = status;
         this.itemDetails = itemDetails;
         this.userDetail = userDetail;
+    }
+
+    public OrderDetail(Order order) {
+        this(order.getCode(),order.getDate(),order.getStatus().getValue(), order.getItems(), order.getUser());
     }
 
     public void setCode(String code) {

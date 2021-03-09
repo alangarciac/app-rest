@@ -28,15 +28,17 @@ public class DateFormat {
     /**
      * Transform Long Epoch to LocalDateTime
      * */
-    public static LocalDateTime fromEpoch(Long epochValue) {
+    public static LocalDateTime fromEpoch(Long epochValue) { //Of Milliseconds
         return LocalDateTime.ofInstant(Instant.ofEpochMilli(epochValue), ZoneId.systemDefault());
     }
 
     /**
      * Transform LocalDateTime to Epoch Long
      * */
-    public static Long toEpoch(LocalDateTime localDateTime) {
-        return  localDateTime.toEpochSecond(ZoneOffset.of(ZoneId.systemDefault().toString()));
+    public static Long toEpoch(LocalDateTime localDateTime) { //In Milliseconds
+        return  localDateTime.toEpochSecond(ZoneId.of(ZoneId.systemDefault().getId()).getRules().getOffset(Instant.now()))*1000;
+
+
     }
 
 

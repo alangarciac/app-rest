@@ -7,7 +7,6 @@ import java.util.Date;
 public class DateFormat {
 
     static final String PATTERN = "dd-MM-yyyy HH:mm";
-    static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN);
 
     /**
      * Transform Java Date to LocalDateTime

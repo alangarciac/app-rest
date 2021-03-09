@@ -1,9 +1,8 @@
 package com.app.rest.model.persistence;
 
-import com.app.rest.model.dto.OrderDTO;
-
 import javax.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class OrderDetail {
     @GeneratedValue
     private Long id;
     private String code;
-    private Date date;
+    private LocalDateTime date;
     private String status;
 
     @OneToMany
@@ -26,7 +25,7 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
-    private OrderDetail(String code, Date date, String status, List<ItemDetail> itemDetails, UserDetail userDetail) {
+    public OrderDetail(String code, LocalDateTime date, String status, List<ItemDetail> itemDetails, UserDetail userDetail) {
         this.code = code;
         this.date = date;
         this.status = status;
@@ -34,15 +33,11 @@ public class OrderDetail {
         this.userDetail = userDetail;
     }
 
-    public OrderDetail(OrderDTO order) {
-        this(order.getCode(),order.getDate(),order.getStatus().getValue(), order.getItems(), order.getUser());
-    }
-
     public void setCode(String code) {
         this.code = code;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -66,7 +61,7 @@ public class OrderDetail {
         return code;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 

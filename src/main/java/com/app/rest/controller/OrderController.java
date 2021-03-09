@@ -1,6 +1,7 @@
 package com.app.rest.controller;
 
 import com.app.rest.exception.OrderNotFoundException;
+import com.app.rest.exception.OrderPersistenceException;
 import com.app.rest.model.dto.OrderDTO;
 import com.app.rest.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +29,12 @@ public class OrderController {
         }
     }
 
-    @PostMapping("/orders")
+    @PostMapping("/orders/new")
     public ResponseEntity<Long> createOrder(@RequestBody OrderDTO order) {
         try{
-            if(order.isSupported()) {
-                return new ResponseEntity<Long>(orderService.createNewOrder(order), HttpStatus.CREATED);
-            } else {
-                return ResponseEntity.badRequest().build();
-            }
-        } catch (IllegalStateException ie) {
+            return order.isSupported() ?
+                    new ResponseEntity<Long>(orderService.createNewOrder(order), HttpStatus.CREATED) : ResponseEntity.badRequest().build();
+        } catch (OrderPersistenceException ie) {
             return ResponseEntity.unprocessableEntity().build();
         }
     }

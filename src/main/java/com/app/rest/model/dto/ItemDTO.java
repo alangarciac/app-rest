@@ -2,15 +2,14 @@ package com.app.rest.model.dto;
 
 import com.app.rest.exception.ItemTypeException;
 import com.app.rest.exception.ItemValidateException;
+import com.app.rest.format.DateFormat;
 import com.app.rest.model.persistence.ItemDetail;
-import org.aspectj.bridge.Message;
-import org.springframework.http.ResponseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.util.StringUtils;
-
 import java.text.MessageFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
+import java.time.LocalDateTime;
 
 public class ItemDTO {
 
@@ -19,22 +18,23 @@ public class ItemDTO {
     private ItemType type;
     private String description;
     private boolean deleted;
-    private Date last_modified;
+    private LocalDateTime lastModified;
 
-    public ItemDTO(String name, String type, String description, boolean deleted, Long last_modified) throws ItemTypeException {
+    public ItemDTO(String name, String type, String description, boolean deleted, Long lastModified) throws ItemTypeException {
         this.name = name;
         this.type = ItemType.fromString(type);
         this.description = description;
         this.deleted = deleted;
-        this.last_modified = new Date(last_modified);
+        this.lastModified = DateFormat.fromEpoch(lastModified);
     }
+
     public ItemDTO(ItemDetail itemDetail) throws ItemTypeException {
         this.id = itemDetail.getId();
         this.name = itemDetail.getName();
         this.description = itemDetail.getDescription();
         this.deleted = itemDetail.isDeleted();
         this.type = ItemType.fromString(itemDetail.getType());
-        this.last_modified = new Date(itemDetail.getLast_modified());
+        this.lastModified = DateFormat.fromEpoch(itemDetail.getLast_modified());
     }
 
     public Long getId() {
@@ -77,24 +77,20 @@ public class ItemDTO {
         this.deleted = deleted;
     }
 
-    public Date getLast_modified() {
-        return last_modified;
+    public String getLastModified() { return DateFormat.printBeauty(this.lastModified); }
+
+    @JsonIgnore
+    public LocalDateTime getLastModifiedDate() {
+        return lastModified;
     }
 
-    public void setLast_modified(Long last_modified) {
-        this.last_modified = new Date(last_modified);
+    public void setLastModified(Long lastModified) {
+        this.lastModified = DateFormat.fromEpoch(lastModified);
     }
 
     @Override
     public String toString() {
-        return "ItemDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", type=" + type +
-                ", description='" + description + '\'' +
-                ", deleted=" + deleted +
-                ", last_modified=" + last_modified +
-                '}';
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 
     public void validate () throws ItemValidateException{

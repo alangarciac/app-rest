@@ -57,10 +57,10 @@ public class ItemTest {
             System.out.println("Illegal type value, which is expected");
         }
         try {
-            itemDTO = new ItemDTO("test", "VEGAN","test",false, Calendar.getInstance().getTimeInMillis());
+            itemDTO = new ItemDTO("test", "OTHER","test",false, Calendar.getInstance().getTimeInMillis());
             itemDTO.validate();
             System.out.println(itemService.saveItem(itemDTO));
-            itemDTO = new ItemDTO("test", "VEGAN","test",false,Calendar.getInstance().getTimeInMillis());
+            itemDTO = new ItemDTO("test", "OTHER","test",false,Calendar.getInstance().getTimeInMillis());
             itemDTO.validate();
             System.out.println(itemService.saveItem(itemDTO));
         } catch (ItemValidateException | ItemTypeException ie) {

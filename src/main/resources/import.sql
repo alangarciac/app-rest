@@ -1,6 +1,6 @@
-insert into ITEMDETAIL values(1,false, 'fideos con salsa de tomate', 1615232382304, 'fideos', 'VEGAN');
-insert into ITEMDETAIL values(2, false,'un bife', 1615232382304,'carne', 'OKCELIAC');
-insert into ITEMDETAIL values(3, false,'milange en 2 panes', 1615232382304, 'sambuches', 'NOVEGAN');
+insert into ITEMDETAIL values(1,false, 'fideos con salsa de tomate', 1615232382304, 'fideos', 'FOOD');
+insert into ITEMDETAIL values(2, false,'un bife', 1615232382304,'carne', 'FOOD');
+insert into ITEMDETAIL values(3, false,'milange en 2 panes', 1615232382304, 'sambuches', 'FOOD');
 insert into USERDETAIL values (1, false, 'joe', 'joe@example');
 insert into USERDETAIL values (2, false, 'juampi', 'juampi@example');
 insert into ORDERDETAIL values (1, 'PedidosYA', '2021-02-19', 'PENDING', 1);

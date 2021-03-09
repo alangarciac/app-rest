@@ -6,9 +6,9 @@ import java.util.Arrays;
 
 public enum ItemType {
 
-    VEGAN("VEGAN"),
-    NOVEGAN("NOVEGAN"),
-    OKCELIAC("OKCELIAC");
+    FOOD("FOOD"),
+    SERVICE("SERVICE"),
+    OTHER("OTHER");
 
     private String value;
 

@@ -41,6 +41,9 @@ public class DateFormat {
 
     }
 
+    public static LocalDateTime now(){
+        return LocalDateTime.now(ZoneId.of(ZoneId.systemDefault().getId()).getRules().getOffset(Instant.now()));
+    }
 
     /**
      * Transform String with format dd-MM-yyyy HH:mm to LocalDateTime

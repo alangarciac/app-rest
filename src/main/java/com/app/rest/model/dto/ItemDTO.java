@@ -4,6 +4,7 @@ import com.app.rest.exception.ItemTypeException;
 import com.app.rest.exception.ItemValidateException;
 import com.app.rest.format.DateFormat;
 import com.app.rest.model.persistence.ItemDetail;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -11,7 +12,7 @@ import org.springframework.util.StringUtils;
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
 
-public class ItemDTO {
+public class ItemDTO implements ItemValidator {
 
     private Long id;
     private String name;
@@ -20,12 +21,21 @@ public class ItemDTO {
     private boolean deleted;
     private LocalDateTime lastModified;
 
-    public ItemDTO(String name, String type, String description, boolean deleted, Long lastModified) throws ItemTypeException {
+    /*public ItemDTO(String name, String type, String description, boolean deleted, Long lastModified) throws ItemTypeException {
         this.name = name;
         this.type = ItemType.fromString(type);
         this.description = description;
         this.deleted = deleted;
         this.lastModified = DateFormat.fromEpoch(lastModified);
+    }*/
+
+    @JsonCreator //Constructor for Jackson, assumes some values
+    public ItemDTO(String name, String type, String description) throws ItemTypeException {
+        this.name = name;
+        this.type = ItemType.fromString(type);
+        this.description = description;
+        this.deleted = false;
+        this.lastModified = DateFormat.now();
     }
 
     public ItemDTO(ItemDetail itemDetail) throws ItemTypeException {

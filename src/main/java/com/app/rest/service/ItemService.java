@@ -1,6 +1,6 @@
 package com.app.rest.service;
 
-import com.app.rest.dao.ItemDAO;
+import com.app.rest.dao.impl.ItemDAOHibernateImpl;
 import com.app.rest.exception.ItemException;
 import com.app.rest.exception.ItemNotFoundException;
 import com.app.rest.model.dto.ItemDTO;
@@ -16,7 +16,7 @@ public class ItemService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ItemService.class);
 
     @Autowired
-    private ItemDAO itemDAO;
+    private ItemDAOHibernateImpl itemDAO;
 
 
     public ItemDTO getItemById(Long id) throws ItemNotFoundException, ItemException {

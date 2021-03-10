@@ -1,5 +1,6 @@
-package com.app.rest.dao;
+package com.app.rest.dao.impl;
 
+import com.app.rest.dao.interfaces.ItemDAO;
 import com.app.rest.exception.ItemException;
 import com.app.rest.exception.ItemNotFoundException;
 import com.app.rest.exception.ItemTypeException;
@@ -22,8 +23,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ItemDAO {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ItemDAO.class);
+public class ItemDAOHibernateImpl implements ItemDAO {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ItemDAOHibernateImpl.class);
 
     @Autowired
     private ItemRepo itemRepo;

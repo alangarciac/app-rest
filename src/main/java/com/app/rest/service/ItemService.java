@@ -1,8 +1,9 @@
 package com.app.rest.service;
 
 import com.app.rest.dao.impl.ItemDAOHibernateImpl;
-import com.app.rest.exception.ItemException;
-import com.app.rest.exception.ItemNotFoundException;
+import com.app.rest.exception.itemExceptions.ItemException;
+import com.app.rest.exception.itemExceptions.ItemNotFoundException;
+import com.app.rest.exception.itemExceptions.ItemPersistanceException;
 import com.app.rest.model.dto.ItemDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,28 +21,58 @@ public class ItemService {
 
 
     public ItemDTO getItemById(Long id) throws ItemNotFoundException, ItemException {
-        return itemDAO.findById(id);
+        try {
+            return itemDAO.findById(id);
+        } catch (ItemPersistanceException ip){
+            LOGGER.error(ip.getMessage());
+            throw new ItemException(ip.getMessage());
+        }
     }
 
     public List<ItemDTO> getItems() throws ItemException {
-        return itemDAO.findAll();
+        try {
+            return itemDAO.findAll();
+        } catch (ItemPersistanceException ip){
+            LOGGER.error(ip.getMessage());
+            throw new ItemException(ip.getMessage());
+        }
     }
 
     public ItemDTO saveItem(ItemDTO itemDTO) throws ItemException {
-        if (Objects.isNull(itemDAO.findOneByNameAndDesc(itemDTO))) { //check dupes
-            return itemDAO.save(itemDTO);
-        } else throw new ItemException("Item already exists!");
+        try {
+            if (Objects.isNull(itemDAO.findOneByNameAndDesc(itemDTO))) { //check dupes
+                return itemDAO.save(itemDTO);
+            } else throw new ItemException("Item already exists!");
+        } catch (ItemPersistanceException ip){
+            LOGGER.error(ip.getMessage());
+            throw new ItemException(ip.getMessage());
+        }
     }
 
     public ItemDTO deleteItem(Long id) throws ItemException, ItemNotFoundException {
+        try {
             return itemDAO.delete(id);
+        } catch (ItemPersistanceException ip){
+            LOGGER.error(ip.getMessage());
+            throw new ItemException(ip.getMessage());
+        }
     }
 
     public ItemDTO updateItem(Long id, ItemDTO itemDTO) throws ItemException, ItemNotFoundException {
-        return itemDAO.update(id, itemDTO);
+        try {
+            return itemDAO.update(id, itemDTO);
+        } catch (ItemPersistanceException ip){
+            LOGGER.error(ip.getMessage());
+            throw new ItemException(ip.getMessage());
+        }
     }
 
     public List<ItemDTO> getItemsByType(String type) throws ItemException {
-        return itemDAO.findAllByTypeSorted(type);
+        try {
+            return itemDAO.findAllByTypeSorted(type);
+        } catch (ItemPersistanceException ip){
+        LOGGER.error(ip.getMessage());
+        throw new ItemException(ip.getMessage());
+        }
     }
 }

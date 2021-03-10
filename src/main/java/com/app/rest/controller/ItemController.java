@@ -1,8 +1,8 @@
 package com.app.rest.controller;
 
-import com.app.rest.exception.ItemException;
-import com.app.rest.exception.ItemNotFoundException;
-import com.app.rest.exception.ItemValidateException;
+import com.app.rest.exception.itemExceptions.ItemException;
+import com.app.rest.exception.itemExceptions.ItemNotFoundException;
+import com.app.rest.exception.itemExceptions.ItemValidateException;
 import com.app.rest.model.dto.ItemDTO;
 import com.app.rest.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;

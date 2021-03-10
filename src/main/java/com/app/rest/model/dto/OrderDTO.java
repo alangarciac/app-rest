@@ -1,9 +1,8 @@
 package com.app.rest.model.dto;
 
 
-import com.app.rest.exception.ItemTypeException;
+import com.app.rest.exception.itemExceptions.ItemTypeException;
 import com.app.rest.format.DateFormat;
-import com.app.rest.model.persistence.ItemDetail;
 import com.app.rest.model.persistence.OrderDetail;
 import com.app.rest.model.persistence.UserDetail;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -14,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

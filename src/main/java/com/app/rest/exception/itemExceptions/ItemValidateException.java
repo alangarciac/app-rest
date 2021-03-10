@@ -1,4 +1,4 @@
-package com.app.rest.exception;
+package com.app.rest.exception.itemExceptions;
 
 public class ItemValidateException extends Exception {
 

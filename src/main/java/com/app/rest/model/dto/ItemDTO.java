@@ -1,7 +1,7 @@
 package com.app.rest.model.dto;
 
-import com.app.rest.exception.ItemTypeException;
-import com.app.rest.exception.ItemValidateException;
+import com.app.rest.exception.itemExceptions.ItemTypeException;
+import com.app.rest.exception.itemExceptions.ItemValidateException;
 import com.app.rest.format.DateFormat;
 import com.app.rest.model.persistence.ItemDetail;
 import com.fasterxml.jackson.annotation.JsonCreator;

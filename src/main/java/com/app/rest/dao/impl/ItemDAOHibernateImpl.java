@@ -9,6 +9,9 @@ import com.app.rest.format.DateFormat;
 import com.app.rest.model.dto.ItemDTO;
 import com.app.rest.model.persistence.ItemDetail;
 import com.app.rest.repository.ItemRepo;
+import com.app.rest.service.ItemService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Sort;
@@ -24,6 +27,7 @@ import java.util.Optional;
 
 @Service
 public class ItemDAOHibernateImpl implements ItemDAO {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ItemDAOHibernateImpl.class);
 
     @Autowired
     private ItemRepo itemRepo;
@@ -82,6 +86,7 @@ public class ItemDAOHibernateImpl implements ItemDAO {
             throw new ItemException(ie.getMessage());
         } catch (DataAccessException ie) {
             String message = MessageFormat.format("Error trying to save item {0}. Caused by[{1}]", itemDetail, ie.getMessage());
+            LOGGER.error(message);
             throw new ItemPersistanceException(message);
         }
     }
@@ -102,6 +107,7 @@ public class ItemDAOHibernateImpl implements ItemDAO {
             throw new ItemException(ie.getMessage());
         } catch (DataAccessException ie) {
             String message = MessageFormat.format("Error trying to save item  with id {0}. Caused by[{1}]", id, ie.getMessage());
+            LOGGER.error(message);
             throw new ItemPersistanceException(message);
         }
     }
@@ -124,6 +130,7 @@ public class ItemDAOHibernateImpl implements ItemDAO {
             throw new ItemException(ie.getMessage());
         } catch (DataAccessException e) {
             String message = MessageFormat.format("Error trying to update item {0}. Caused by[{1}]", id, e.getMessage());
+            LOGGER.error(message);
             throw new ItemPersistanceException(message);
         }
     }
@@ -139,6 +146,7 @@ public class ItemDAOHibernateImpl implements ItemDAO {
             throw new ItemException(ie.getMessage());
         } catch (DataAccessException ie) {
             String message = MessageFormat.format("Error trying to save item {0}. Caused by[{1}]", itemDetail, ie.getMessage());
+            LOGGER.error(message);
             throw new ItemPersistanceException(message);
         }
     }
@@ -156,6 +164,7 @@ public class ItemDAOHibernateImpl implements ItemDAO {
             throw new ItemException(ie.getMessage());
         } catch (DataAccessException ie) {
             String message = MessageFormat.format("Error trying to search items by type{0}. Caused by[{1}]", type, ie.getMessage());
+            LOGGER.error(message);
             throw new ItemPersistanceException(message);
         }
     }

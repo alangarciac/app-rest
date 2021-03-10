@@ -7,6 +7,7 @@ import com.app.rest.model.persistence.OrderDetail;
 import com.app.rest.model.persistence.UserDetail;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
@@ -112,5 +113,11 @@ public class OrderDTO implements Checkable {
     public boolean isSupported() {
         // TODO not implemented yet
         return true;
+    }
+
+    @Override
+    public void validate() {
+        // TODO not implemented yet
+        throw new NotImplementedException();
     }
 }

@@ -6,6 +6,7 @@ import com.app.rest.format.DateFormat;
 import com.app.rest.model.persistence.ItemDetail;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.util.StringUtils;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class ItemDTO implements ItemValidator {
+public class ItemDTO implements Checkable {
 
     private Long id;
     private String name;
@@ -109,12 +110,19 @@ public class ItemDTO implements ItemValidator {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 
-    public void validate () throws ItemValidateException{
+    @Override
+    public void validate () throws ItemValidateException {
         if (!StringUtils.hasText(name) || !StringUtils.hasText(description)){ //type boolean cant be null, when null->false, which is ok here.
             throw new ItemValidateException(MessageFormat.format("Object Missing Fields - current values {0},{1},{2},{3}", this.name, this.description, this.type, this.deleted));
         }
         if (Objects.isNull(type)){
             throw new ItemValidateException("Item Type not valid, types admitted:" + Arrays.toString(ItemType.values()));
         }
+    }
+
+    @Override
+    public boolean isSupported() {
+        // TODO not implemented yet
+        throw new NotImplementedException();
     }
 }

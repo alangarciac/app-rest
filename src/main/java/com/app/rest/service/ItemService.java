@@ -40,4 +40,8 @@ public class ItemService {
     public ItemDTO updateItem(Long id, ItemDTO itemDTO) throws ItemException, ItemNotFoundException {
         return itemDAO.update(id, itemDTO);
     }
+
+    public List<ItemDTO> getItemsByType(String type) throws ItemException {
+        return itemDAO.findAllByType(type);
+    }
 }

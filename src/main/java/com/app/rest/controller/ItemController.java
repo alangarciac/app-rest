@@ -65,7 +65,7 @@ public class ItemController {
             return ResponseEntity.unprocessableEntity().build();
         }
     }
-    
+
     @PutMapping("/items/{id}")
     public ResponseEntity<?> updateItem(@PathVariable("id") Long id, @RequestBody ItemDTO itemDTO) {
         try {
@@ -80,5 +80,13 @@ public class ItemController {
             return ResponseEntity.unprocessableEntity().build();
         }
     }
-
+    @GetMapping("/items/{X_type}")
+    public ResponseEntity<List<ItemDTO>> retrieveItemsByType(@PathVariable("X_type") String type) {
+        try{
+            List<ItemDTO> itemsDTO = itemService.getItemsByType(type);
+            return ResponseEntity.ok(itemsDTO);
+        } catch (ItemException ie) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+    }
 }

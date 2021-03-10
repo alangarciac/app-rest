@@ -81,4 +81,11 @@ public class ItemTest {
         System.out.println(itemService.updateItem(itemDTO.getId(), itemDTO));
         System.out.println(itemService.getItems());
     }
+    @Test
+    public void testFindByItem() throws Exception{
+        System.out.println(itemService.getItemsByType("FOOD"));
+
+        System.out.println(itemService.getItemsByType("test"));
+    }
+
 }

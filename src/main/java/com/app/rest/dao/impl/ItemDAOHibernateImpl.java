@@ -6,6 +6,7 @@ import com.app.rest.exception.ItemNotFoundException;
 import com.app.rest.exception.ItemTypeException;
 import com.app.rest.format.DateFormat;
 import com.app.rest.model.dto.ItemDTO;
+import com.app.rest.model.dto.ItemType;
 import com.app.rest.model.persistence.ItemDetail;
 import com.app.rest.repository.ItemRepo;
 import org.slf4j.Logger;
@@ -34,6 +35,9 @@ public class ItemDAOHibernateImpl implements ItemDAO {
     }
     private static Specification<ItemDetail> descriptionContains(String description) {
         return (ItemDetail, cq, cb) -> cb.like(ItemDetail.get("description"), "%" + description + "%");
+    }
+    private static Specification<ItemDetail> hasType(String type) {
+        return (ItemDetail, cq, cb) -> cb.equal(ItemDetail.get("type"), type);
     }
 
     public ItemDTO findById(Long id) throws ItemNotFoundException, ItemException {
@@ -144,6 +148,26 @@ public class ItemDAOHibernateImpl implements ItemDAO {
             throw new ItemException(ie.getMessage());
         } catch (DataAccessException e) {
             String message = MessageFormat.format("Error trying to update item {0}. Caused by[{1}]", id, e.getMessage());
+            LOGGER.error(message);
+            throw new ItemException(message);
+        }
+    }
+
+    public List<ItemDTO> findAllByType(String type) throws ItemException {
+        try {
+            List<ItemDetail> oiDet = itemRepo.findAll(hasType(type));
+            if (oiDet.size() > 0) {
+                List<ItemDTO> itemsDTO = new ArrayList<>();
+                for (ItemDetail itemDetail : oiDet) {
+                    itemsDTO.add(new ItemDTO(itemDetail));
+                }
+                return  itemsDTO;
+            } else { return null; }
+        } catch (ItemTypeException ie) {
+            LOGGER.error(ie.getMessage());
+            throw new ItemException(ie.getMessage());
+        } catch (DataAccessException ie) {
+            String message = MessageFormat.format("Error trying to search items by type{0}. Caused by[{1}]", type, ie.getMessage());
             LOGGER.error(message);
             throw new ItemException(message);
         }

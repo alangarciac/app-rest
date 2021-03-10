@@ -65,6 +65,7 @@ public class ItemController {
             return ResponseEntity.unprocessableEntity().build();
         }
     }
+    
     @PutMapping("/items/{id}")
     public ResponseEntity<?> updateItem(@PathVariable("id") Long id, @RequestBody ItemDTO itemDTO) {
         try {

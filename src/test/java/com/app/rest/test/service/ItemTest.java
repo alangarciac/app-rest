@@ -52,7 +52,7 @@ public class ItemTest {
         try {
             itemDTO = new ItemDTO("test", "test","test");
             itemDTO.validate();
-        } catch (ItemValidateException | ItemTypeException ie) {
+        } catch (ItemValidateException ie) {
             ie.printStackTrace();
             System.out.println("Illegal type value, which is expected");
         }
@@ -63,7 +63,7 @@ public class ItemTest {
             itemDTO = new ItemDTO("test", "OTHER","test");
             itemDTO.validate();
             System.out.println(itemService.saveItem(itemDTO));
-        } catch (ItemValidateException | ItemTypeException ie) {
+        } catch (ItemValidateException ie) {
             ie.printStackTrace(); //Nunca va a saltar aca
         } catch (ItemException ie) {
             System.out.println(ie.getMessage() + " this is expected!");

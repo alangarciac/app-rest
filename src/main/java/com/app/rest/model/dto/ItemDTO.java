@@ -11,6 +11,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.util.StringUtils;
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class ItemDTO implements ItemValidator {
 
@@ -30,9 +32,13 @@ public class ItemDTO implements ItemValidator {
     }*/
 
     @JsonCreator //Constructor for Jackson, assumes some values
-    public ItemDTO(String name, String type, String description) throws ItemTypeException {
+    public ItemDTO(String name, String type, String description) {
         this.name = name;
-        this.type = ItemType.fromString(type);
+        try {
+            this.type = ItemType.fromString(type);
+        } catch (ItemTypeException it) {
+            this.type = null;
+        }
         this.description = description;
         this.deleted = false;
         this.lastModified = DateFormat.now();
@@ -106,6 +112,9 @@ public class ItemDTO implements ItemValidator {
     public void validate () throws ItemValidateException{
         if (!StringUtils.hasText(name) || !StringUtils.hasText(description)){ //type boolean cant be null, when null->false, which is ok here.
             throw new ItemValidateException(MessageFormat.format("Object Missing Fields - current values {0},{1},{2},{3}", this.name, this.description, this.type, this.deleted));
+        }
+        if (Objects.isNull(type)){
+            throw new ItemValidateException("Item Type not valid, types admitted:" + Arrays.toString(ItemType.values()));
         }
     }
 }

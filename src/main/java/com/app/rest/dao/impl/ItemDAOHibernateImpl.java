@@ -9,7 +9,6 @@ import com.app.rest.format.DateFormat;
 import com.app.rest.model.dto.ItemDTO;
 import com.app.rest.model.persistence.ItemDetail;
 import com.app.rest.repository.ItemRepo;
-import com.app.rest.service.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

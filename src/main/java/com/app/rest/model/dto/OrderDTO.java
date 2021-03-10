@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 public class OrderDTO implements Checkable {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(OrderDTO.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderDTO.class);
 
     private Long id;
     private String code;

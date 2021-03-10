@@ -42,6 +42,6 @@ public class ItemService {
     }
 
     public List<ItemDTO> getItemsByType(String type) throws ItemException {
-        return itemDAO.findAllByType(type);
+        return itemDAO.findAllByTypeSorted(type);
     }
 }

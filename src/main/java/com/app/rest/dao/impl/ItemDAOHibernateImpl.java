@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -153,9 +154,9 @@ public class ItemDAOHibernateImpl implements ItemDAO {
         }
     }
 
-    public List<ItemDTO> findAllByType(String type) throws ItemException {
+    public List<ItemDTO> findAllByTypeSorted(String type) throws ItemException {
         try {
-            List<ItemDetail> oiDet = itemRepo.findAll(hasType(type));
+            List<ItemDetail> oiDet = itemRepo.findAll(hasType(type), Sort.by(Sort.Direction.ASC, "name"));
             if (oiDet.size() > 0) {
                 List<ItemDTO> itemsDTO = new ArrayList<>();
                 for (ItemDetail itemDetail : oiDet) {

@@ -84,8 +84,6 @@ public class ItemTest {
     @Test
     public void testFindByItem() throws Exception{
         System.out.println(itemService.getItemsByType("FOOD"));
-
-        System.out.println(itemService.getItemsByType("test"));
     }
 
 }

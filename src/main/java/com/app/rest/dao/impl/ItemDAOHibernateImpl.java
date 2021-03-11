@@ -1,9 +1,9 @@
 package com.app.rest.dao.impl;
 
 import com.app.rest.dao.interfaces.ItemDAO;
-import com.app.rest.exception.itemExceptions.ItemException;
+import com.app.rest.exception.itemExceptions.ItemGeneralException;
 import com.app.rest.exception.itemExceptions.ItemNotFoundException;
-import com.app.rest.exception.itemExceptions.ItemPersistanceException;
+import com.app.rest.exception.itemExceptions.ItemPersistenceException;
 import com.app.rest.exception.itemExceptions.ItemTypeException;
 import com.app.rest.format.DateFormat;
 import com.app.rest.model.dto.ItemDTO;
@@ -42,7 +42,7 @@ public class ItemDAOHibernateImpl implements ItemDAO {
     }
 
     @Override
-    public ItemDTO findById(Long id) throws ItemNotFoundException, ItemException, ItemPersistanceException {
+    public ItemDTO findById(Long id) throws ItemNotFoundException, ItemGeneralException, ItemPersistenceException {
         try {
             Optional<ItemDetail> oiDTO = itemRepo.findById(id);
             if (oiDTO.isPresent()) {
@@ -52,15 +52,15 @@ public class ItemDAOHibernateImpl implements ItemDAO {
                 throw new ItemNotFoundException(message);
             }
         } catch (ItemTypeException ie) {
-            throw new ItemException(ie.getMessage());
+            throw new ItemGeneralException(ie.getMessage());
         } catch (DataAccessException ie) {
             String message = MessageFormat.format("Error trying retrieve item. Caused by[{0}]", ie.getMessage());
-            throw new ItemPersistanceException(message);
+            throw new ItemPersistenceException(message);
         }
     }
 
     @Override
-    public List<ItemDTO> findAll() throws ItemException, ItemPersistanceException {
+    public List<ItemDTO> findAll() throws ItemGeneralException, ItemPersistenceException {
         List<ItemDTO> itemsDTO = new ArrayList<>();
         try {
             List<ItemDetail> items = itemRepo.findAll();
@@ -69,29 +69,29 @@ public class ItemDAOHibernateImpl implements ItemDAO {
                 }
             return  itemsDTO;
         } catch (ItemTypeException ie) {
-            throw new ItemException(ie.getMessage());
+            throw new ItemGeneralException(ie.getMessage());
         } catch (DataAccessException ie) {
             String message = MessageFormat.format("Error trying retrieve item. Caused by[{0}]", ie.getMessage());
-            throw new ItemPersistanceException(message);
+            throw new ItemPersistenceException(message);
         }
     }
 
     @Override
-    public ItemDTO save(ItemDTO itemDTO) throws ItemException, ItemPersistanceException {
+    public ItemDTO save(ItemDTO itemDTO) throws ItemGeneralException, ItemPersistenceException {
         ItemDetail itemDetail = new ItemDetail(itemDTO.getName(), itemDTO.getType(), itemDTO.getDescription(), itemDTO.isDeleted(), Calendar.getInstance().getTimeInMillis());
         try {
             return new ItemDTO(itemRepo.save(itemDetail));
         } catch (ItemTypeException ie) {
-            throw new ItemException(ie.getMessage());
+            throw new ItemGeneralException(ie.getMessage());
         } catch (DataAccessException ie) {
             String message = MessageFormat.format("Error trying to save item {0}. Caused by[{1}]", itemDetail, ie.getMessage());
             LOGGER.error(message);
-            throw new ItemPersistanceException(message);
+            throw new ItemPersistenceException(message);
         }
     }
 
     @Override
-    public ItemDTO delete(Long id) throws ItemException, ItemNotFoundException, ItemPersistanceException {
+    public ItemDTO delete(Long id) throws ItemGeneralException, ItemNotFoundException, ItemPersistenceException {
         try {
             Optional<ItemDetail> oiDet = itemRepo.findById(id);
             if (oiDet.isPresent()) {
@@ -103,15 +103,15 @@ public class ItemDAOHibernateImpl implements ItemDAO {
                 throw new ItemNotFoundException(message);
             }
         } catch (ItemTypeException ie) {
-            throw new ItemException(ie.getMessage());
+            throw new ItemGeneralException(ie.getMessage());
         } catch (DataAccessException ie) {
             String message = MessageFormat.format("Error trying to save item  with id {0}. Caused by[{1}]", id, ie.getMessage());
             LOGGER.error(message);
-            throw new ItemPersistanceException(message);
+            throw new ItemPersistenceException(message);
         }
     }
     @Override
-    public ItemDTO update(Long id, ItemDTO itemDTO) throws ItemException, ItemNotFoundException, ItemPersistanceException {
+    public ItemDTO update(Long id, ItemDTO itemDTO) throws ItemGeneralException, ItemNotFoundException, ItemPersistenceException {
         try {
             Optional<ItemDetail> oiDTO = itemRepo.findById(id);
             if (oiDTO.isPresent()) {
@@ -126,15 +126,15 @@ public class ItemDAOHibernateImpl implements ItemDAO {
                 throw new ItemNotFoundException(message);
             }
         } catch (ItemTypeException ie) {
-            throw new ItemException(ie.getMessage());
+            throw new ItemGeneralException(ie.getMessage());
         } catch (DataAccessException e) {
             String message = MessageFormat.format("Error trying to update item {0}. Caused by[{1}]", id, e.getMessage());
             LOGGER.error(message);
-            throw new ItemPersistanceException(message);
+            throw new ItemPersistenceException(message);
         }
     }
 
-    public ItemDTO findOneByNameAndDesc(ItemDTO itemDTO) throws ItemException, ItemPersistanceException {
+    public ItemDTO findOneByNameAndDesc(ItemDTO itemDTO) throws ItemGeneralException, ItemPersistenceException {
         ItemDetail itemDetail = new ItemDetail(itemDTO.getName(), itemDTO.getType(), itemDTO.getDescription(), itemDTO.isDeleted(), Calendar.getInstance().getTimeInMillis());
         try {
             Optional<ItemDetail> oiDTO = itemRepo.findOne(hasName(itemDTO.getName()).and(descriptionContains(itemDTO.getDescription())));
@@ -142,14 +142,14 @@ public class ItemDAOHibernateImpl implements ItemDAO {
                 return new ItemDTO(oiDTO.get());
             } else { return null; }
         } catch (ItemTypeException ie) {
-            throw new ItemException(ie.getMessage());
+            throw new ItemGeneralException(ie.getMessage());
         } catch (DataAccessException ie) {
             String message = MessageFormat.format("Error trying to save item {0}. Caused by[{1}]", itemDetail, ie.getMessage());
             LOGGER.error(message);
-            throw new ItemPersistanceException(message);
+            throw new ItemPersistenceException(message);
         }
     }
-    public List<ItemDTO> findAllByTypeSorted(String type) throws ItemException, ItemPersistanceException {
+    public List<ItemDTO> findAllByTypeSorted(String type) throws ItemGeneralException, ItemPersistenceException {
         try {
             List<ItemDetail> oiDet = itemRepo.findAll(hasType(type), Sort.by(Sort.Direction.ASC, "name"));
             if (oiDet.size() > 0) {
@@ -160,11 +160,11 @@ public class ItemDAOHibernateImpl implements ItemDAO {
                 return  itemsDTO;
             } else { return null; }
         } catch (ItemTypeException ie) {
-            throw new ItemException(ie.getMessage());
+            throw new ItemGeneralException(ie.getMessage());
         } catch (DataAccessException ie) {
             String message = MessageFormat.format("Error trying to search items by type{0}. Caused by[{1}]", type, ie.getMessage());
             LOGGER.error(message);
-            throw new ItemPersistanceException(message);
+            throw new ItemPersistenceException(message);
         }
     }
 }

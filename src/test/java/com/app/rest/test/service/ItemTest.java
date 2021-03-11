@@ -1,9 +1,9 @@
 package com.app.rest.test.service;
 
 
-import com.app.rest.exception.itemExceptions.ItemException;
+import com.app.rest.exception.itemExceptions.ItemGeneralException;
 import com.app.rest.exception.itemExceptions.ItemNotFoundException;
-import com.app.rest.exception.itemExceptions.ItemValidateException;
+import com.app.rest.exception.ValidationException;
 import com.app.rest.model.dto.ItemDTO;
 import com.app.rest.service.ItemService;
 import org.junit.jupiter.api.Test;
@@ -17,12 +17,12 @@ public class ItemTest {
     private ItemService itemService;
 
     @Test
-    public void testItems() throws ItemException {
+    public void testItems() throws ItemGeneralException {
         System.out.println(itemService.getItems());
     }
 
     @Test
-    public void testItem1() throws ItemNotFoundException, ItemException {
+    public void testItem1() throws ItemNotFoundException, ItemGeneralException {
         ItemDTO itemDTO = itemService.getItemById(1L);
         System.out.println("Item retrieved "+ itemDTO);
         try {
@@ -49,7 +49,7 @@ public class ItemTest {
         try {
             itemDTO = new ItemDTO("test", "test","test");
             itemDTO.validate();
-        } catch (ItemValidateException ie) {
+        } catch (ValidationException ie) {
             ie.printStackTrace();
             System.out.println("Illegal type value, which is expected");
         }
@@ -60,9 +60,9 @@ public class ItemTest {
             itemDTO = new ItemDTO("test", "OTHER","test");
             itemDTO.validate();
             System.out.println(itemService.saveItem(itemDTO));
-        } catch (ItemValidateException ie) {
+        } catch (ValidationException ie) {
             ie.printStackTrace(); //Nunca va a saltar aca
-        } catch (ItemException ie) {
+        } catch (ItemGeneralException ie) {
             System.out.println(ie.getMessage() + " this is expected!");
         }
     }

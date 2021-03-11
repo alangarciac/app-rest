@@ -1,12 +1,11 @@
 package com.app.rest.model.dto;
 
 import com.app.rest.exception.itemExceptions.ItemTypeException;
-import com.app.rest.exception.itemExceptions.ItemValidateException;
+import com.app.rest.exception.ValidationException;
 import com.app.rest.format.DateFormat;
 import com.app.rest.model.persistence.ItemDetail;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.util.StringUtils;
@@ -111,18 +110,12 @@ public class ItemDTO implements Checkable {
     }
 
     @Override
-    public void validate () throws ItemValidateException {
+    public void validate () throws ValidationException {
         if (!StringUtils.hasText(name) || !StringUtils.hasText(description)){ //type boolean cant be null, when null->false, which is ok here.
-            throw new ItemValidateException(MessageFormat.format("Object Missing Fields - current values {0},{1},{2},{3}", this.name, this.description, this.type, this.deleted));
+            throw new ValidationException(MessageFormat.format("Object Missing Fields - current values {0},{1},{2},{3}", this.name, this.description, this.type, this.deleted));
         }
         if (Objects.isNull(type)){
-            throw new ItemValidateException("Item Type not valid, types admitted:" + Arrays.toString(ItemType.values()));
+            throw new ValidationException("Item Type not valid, types admitted:" + Arrays.toString(ItemType.values()));
         }
-    }
-
-    @Override
-    public boolean isSupported() {
-        // TODO not implemented yet
-        throw new NotImplementedException();
     }
 }

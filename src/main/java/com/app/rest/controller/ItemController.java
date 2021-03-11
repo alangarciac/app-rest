@@ -1,8 +1,8 @@
 package com.app.rest.controller;
 
-import com.app.rest.exception.itemExceptions.ItemException;
+import com.app.rest.exception.itemExceptions.ItemGeneralException;
 import com.app.rest.exception.itemExceptions.ItemNotFoundException;
-import com.app.rest.exception.itemExceptions.ItemValidateException;
+import com.app.rest.exception.ValidationException;
 import com.app.rest.model.dto.ItemDTO;
 import com.app.rest.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class ItemController {
             ItemDTO itemDTO = itemService.getItemById(id);
             return ResponseEntity.ok(itemDTO);
         //} catch (IllegalStateException|ItemException ie) {
-        } catch (ItemException ie) {
+        } catch (ItemGeneralException ie) {
             return ResponseEntity.unprocessableEntity().build();
         } catch (ItemNotFoundException nf) {
             return ResponseEntity.notFound().build();
@@ -35,7 +35,7 @@ public class ItemController {
         try{
             List<ItemDTO> itemsDTO = itemService.getItems();
             return ResponseEntity.ok(itemsDTO);
-        } catch (IllegalStateException | ItemException ie) {
+        } catch (IllegalStateException | ItemGeneralException ie) {
             return ResponseEntity.unprocessableEntity().build();
         }
     }
@@ -46,9 +46,9 @@ public class ItemController {
             itemDTO.validate();   //Must validate, DTO auto loaded from Json
             itemDTO = itemService.saveItem(itemDTO);
             return ResponseEntity.ok(itemDTO);
-        } catch (ItemValidateException iv) {
+        } catch (ValidationException iv) {
             return ResponseEntity.badRequest().body(iv.getMessage());
-        } catch (ItemException ie) {
+        } catch (ItemGeneralException ie) {
             return ResponseEntity.unprocessableEntity().build();
         }
 
@@ -61,7 +61,7 @@ public class ItemController {
             return ResponseEntity.ok(itemDTO);
         } catch (ItemNotFoundException nf) {
             return ResponseEntity.notFound().build();
-        } catch (ItemException ie) {
+        } catch (ItemGeneralException ie) {
             return ResponseEntity.unprocessableEntity().build();
         }
     }
@@ -72,20 +72,20 @@ public class ItemController {
             itemDTO.validate();   //Must validate, DTO auto loaded from Json
             itemDTO = itemService.updateItem(id, itemDTO);
             return ResponseEntity.ok(itemDTO);
-        } catch (ItemValidateException iv) {
+        } catch (ValidationException iv) {
             return ResponseEntity.badRequest().body(iv.getMessage());
         } catch (ItemNotFoundException nf) {
             return ResponseEntity.notFound().build();
-        } catch (ItemException ie) {
+        } catch (ItemGeneralException ie) {
             return ResponseEntity.unprocessableEntity().build();
         }
     }
-    @GetMapping("/items/{X_type}")
-    public ResponseEntity<List<ItemDTO>> retrieveItemsByType(@PathVariable("X_type") String type) {
+    @GetMapping("/items/{type}")
+    public ResponseEntity<List<ItemDTO>> retrieveItemsByType(@PathVariable("type") String type) {
         try{
             List<ItemDTO> itemsDTO = itemService.getItemsByType(type);
             return ResponseEntity.ok(itemsDTO);
-        } catch (ItemException ie) {
+        } catch (ItemGeneralException ie) {
             return ResponseEntity.unprocessableEntity().build();
         }
     }

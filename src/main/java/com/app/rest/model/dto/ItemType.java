@@ -1,14 +1,14 @@
 package com.app.rest.model.dto;
 
-import com.app.rest.exception.ItemTypeException;
+import com.app.rest.exception.itemExceptions.ItemTypeException;
 
 import java.util.Arrays;
 
 public enum ItemType {
 
-    VEGAN("VEGAN"),
-    NOVEGAN("NOVEGAN"),
-    OKCELIAC("OKCELIAC");
+    FOOD("FOOD"),
+    SERVICE("SERVICE"),
+    OTHER("OTHER");
 
     private String value;
 

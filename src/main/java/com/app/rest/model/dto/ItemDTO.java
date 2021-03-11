@@ -1,17 +1,20 @@
 package com.app.rest.model.dto;
 
-import com.app.rest.exception.ItemTypeException;
-import com.app.rest.exception.ItemValidateException;
+import com.app.rest.exception.itemExceptions.ItemTypeException;
+import com.app.rest.exception.ValidationException;
 import com.app.rest.format.DateFormat;
 import com.app.rest.model.persistence.ItemDetail;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.util.StringUtils;
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Objects;
 
-public class ItemDTO {
+public class ItemDTO implements Checkable {
 
     private Long id;
     private String name;
@@ -20,12 +23,25 @@ public class ItemDTO {
     private boolean deleted;
     private LocalDateTime lastModified;
 
-    public ItemDTO(String name, String type, String description, boolean deleted, Long lastModified) throws ItemTypeException {
+    /*public ItemDTO(String name, String type, String description, boolean deleted, Long lastModified) throws ItemTypeException {
         this.name = name;
         this.type = ItemType.fromString(type);
         this.description = description;
         this.deleted = deleted;
         this.lastModified = DateFormat.fromEpoch(lastModified);
+    }*/
+
+    @JsonCreator //Constructor for Jackson, assumes some values
+    public ItemDTO(String name, String type, String description) {
+        this.name = name;
+        try {
+            this.type = ItemType.fromString(type);
+        } catch (ItemTypeException it) {
+            this.type = null;
+        }
+        this.description = description;
+        this.deleted = false;
+        this.lastModified = DateFormat.now();
     }
 
     public ItemDTO(ItemDetail itemDetail) throws ItemTypeException {
@@ -93,9 +109,13 @@ public class ItemDTO {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 
-    public void validate () throws ItemValidateException{
+    @Override
+    public void validate () throws ValidationException {
         if (!StringUtils.hasText(name) || !StringUtils.hasText(description)){ //type boolean cant be null, when null->false, which is ok here.
-            throw new ItemValidateException(MessageFormat.format("Object Missing Fields - current values {0},{1},{2},{3}", this.name, this.description, this.type, this.deleted));
+            throw new ValidationException(MessageFormat.format("Object Missing Fields - current values {0},{1},{2},{3}", this.name, this.description, this.type, this.deleted));
+        }
+        if (Objects.isNull(type)){
+            throw new ValidationException("Item Type not valid, types admitted:" + Arrays.toString(ItemType.values()));
         }
     }
 }

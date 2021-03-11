@@ -1,6 +1,8 @@
-package com.app.rest.exception;
+package com.app.rest.exception.itemExceptions;
 
-public class ItemNotFoundException extends OrderException{
+import com.app.rest.exception.OrderException;
+
+public class ItemNotFoundException extends ItemException {
 
     public ItemNotFoundException() {}
 

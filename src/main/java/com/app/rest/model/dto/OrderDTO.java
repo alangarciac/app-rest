@@ -1,27 +1,26 @@
 package com.app.rest.model.dto;
 
 
-import com.app.rest.exception.ItemTypeException;
+import com.app.rest.exception.itemExceptions.ItemTypeException;
 import com.app.rest.format.DateFormat;
-import com.app.rest.model.persistence.ItemDetail;
 import com.app.rest.model.persistence.OrderDetail;
 import com.app.rest.model.persistence.UserDetail;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class OrderDTO implements Checkable {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(OrderDTO.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderDTO.class);
 
     private Long id;
     private String code;
@@ -114,5 +113,11 @@ public class OrderDTO implements Checkable {
     public boolean isSupported() {
         // TODO not implemented yet
         return true;
+    }
+
+    @Override
+    public void validate() {
+        // TODO not implemented yet
+        throw new NotImplementedException();
     }
 }

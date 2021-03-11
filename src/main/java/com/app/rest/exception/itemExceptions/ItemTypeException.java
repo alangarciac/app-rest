@@ -1,6 +1,6 @@
-package com.app.rest.exception;
+package com.app.rest.exception.itemExceptions;
 
-public class ItemTypeException extends Exception {
+public class ItemTypeException extends ItemException {
 
     public ItemTypeException(){};
 

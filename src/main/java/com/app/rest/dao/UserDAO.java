@@ -2,12 +2,7 @@ package com.app.rest.dao;
 
 import com.app.rest.exception.UserNotFoundException;
 import com.app.rest.exception.UserPersistenceException;
-import com.app.rest.exception.UserNotFoundException;
-import com.app.rest.exception.UserPersistenceException;
-import com.app.rest.format.DateFormat;
 import com.app.rest.model.dto.UserDTO;
-import com.app.rest.model.dto.UserDTO;
-import com.app.rest.model.persistence.UserDetail;
 import com.app.rest.model.persistence.UserDetail;
 import com.app.rest.repository.UserRepo;
 import org.slf4j.Logger;
@@ -17,7 +12,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

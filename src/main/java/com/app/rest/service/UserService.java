@@ -23,20 +23,6 @@ public class UserService {
     @Autowired
     private UserDAO userDAO;
 
-//    public List<UserDetail> getUsers() throws InterruptedException {
-//        return userDao.findAll();
-//    }
-//    public Optional<UserDetail> getUser(Long id) throws InterruptedException {
-//        return userDAO.findById(id);
-//    }
-//    public Long saveUser(UserDetail userDetail) throws InterruptedException {
-//        return userDAO.save(userDetail).getId();
-//    }
-//    public UserDetail deleteUser(UserDetail userDetail) {
-//        userDetail.setDeleted(true);
-//        return userDAO.save(userDetail);
-//    }
-
     public UserDTO findUserById(Long id) throws UserNotFoundException{
         try{
             return userDAO.retrieveUserById(id);

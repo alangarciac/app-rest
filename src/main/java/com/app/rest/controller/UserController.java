@@ -64,10 +64,8 @@ public class UserController {
             userDTO.validate();   //Must validate, DTO auto loaded from Json
             userDTO = userService.updateUser(id, userDTO);
             return ResponseEntity.ok(userDTO);
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        } catch (UserPersistenceException e) {
-            e.printStackTrace();
+        } catch (UserNotFoundException | UserPersistenceException nf) {
+            return ResponseEntity.notFound().build();
         }
     }
 

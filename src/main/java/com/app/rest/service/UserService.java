@@ -2,9 +2,6 @@ package com.app.rest.service;
 
 import com.app.rest.exception.UserPersistenceException;
 import com.app.rest.exception.UserNotFoundException;
-import com.app.rest.exception.UserNotFoundException;
-import com.app.rest.exception.UserPersistenceException;
-import com.app.rest.model.dto.UserDTO;
 import com.app.rest.model.dto.UserDTO;
 import com.app.rest.dao.UserDAO;
 import org.slf4j.Logger;
